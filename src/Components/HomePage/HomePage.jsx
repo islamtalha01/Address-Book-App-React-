@@ -1,151 +1,173 @@
-import { useState, useEffect } from "react";
-import { Input, Card } from "antd";
-import Loading from "../Loading";
-import axios from "axios";
+import { Input, Card,Button,ConfigProvider } from "antd";
+import useInfiniteScroll from "../../hooks/useInfiniteScroll";
+import { useState } from "react";
+import { theme } from "./styles";
 const { Meta } = Card;
 function HomePage() {
-  const [SearchedText, setSearchedText] = useState("");//for searching purpose later on
-  const [data_array, setDataSource] = useState([]);
-
-// const Loader = async () => {
-//   const dataArray = [];
-//   try {
-//     const response = await axios.get("https://randomuser.me/api/?results=1000");
-//     const results = response.data.results;
-//     console.log(response.data);
-
-//     results.forEach((element) => {
-//       const firstName = element.name.first;
-//       const lastName = element.name.last;
-//       const email = element.email;
-//       const userName = element.login.username;
-//       const thumbnail_Url = element.picture.thumbnail;
-
-//       //location.street, location.city,location.state ,location.postcode,phoone ,cell field
-
-//       const detail = {
-//         first: firstName,
-//         last: lastName,
-//         email: email,
-//         username: userName,
-//         thumb_Url: thumbnail_Url,
-//       };
-
-//       dataArray.push(detail);
-//     });
-//     setDataSource(dataArray);
-//     // console.log(dataArray);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-const [batch_size,setBatchSize]=useState(50)
-const [End0fusers,setEnd0fusers]=useState(false)
-const [loading, setLoading]= useState(true)
-// function setBatchSize (prev)
-// {
-//     if(prev>=1000)
-//     {
-              
-//               setEnd0fusers(true);
-              
-//     }
-//     console.log(End0fusers)
-//    //if bactchsizesum>1000 ser enf of user to true
-// }
-
-const Loader = async () => {
-  const dataArray = [];
-  try {
-    const response = await axios.get(`https://randomuser.me/api/?results=${batch_size}`);
-    const results = response.data;
-    console.log(response.data);
-    setLoading(false)
-    results.forEach((element) => {
-      const firstName = element.name.first;
-      const lastName = element.name.last;
-      const email = element.email;
-      const userName = element.login.username;
-      const thumbnail_Url = element.picture.thumbnail;
-
-      //location.street, location.city,location.state ,location.postcode,phoone ,cell field
-
-      const detail = {
-        first: firstName,
-        last: lastName,
-        email: email,
-        username: userName,
-        thumb_Url: thumbnail_Url,
-      };
-
-      dataArray.push(detail);
-    });
-
-
-    setDataSource((prev)=>[...prev,...dataArray]); 
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-useEffect(() => {
-  fetchData();
-  const handleScroll = (e) => {
-    const scrollHeight = e.target.documentElement.scrollHeight;
-    const currentHeight =
-      e.target.documentElement.scrollTop + window.innerHeight;
-    if (currentHeight + 1 >= scrollHeight) {
-      setLoading(true)    
-      setBatchSize((prev)=>{prev+50});
-    }
+  const { dataArray, endOfUser } = useInfiniteScroll();
+  const [showMoreInfo, setShowMoreInfo] = useState(false);
+  const toggleMoreInfo = () => {
+    setShowMoreInfo(!showMoreInfo);
   };
-
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
-}, [batch_size]);
-
-
-
-
-useEffect(() => {
-  Loader();
-}, []);
 
   const renderItem = (item) => {
     return (
-      <div>
-        <Meta title={item.first + item.last} description={item.email} />
-        {/* Additional content specific to each item */}
-      </div>
+      <>
+      <Meta
+          title={item.first +" "+ item.last}
+          description={
+            <>
+              Email : {item.email}
+              <br />
+              Username : {item.userName}
+            </>
+          }
+        />
+        {showMoreInfo && (
+          <>
+            <p>Street: {item.city}</p> 
+            <p>City: {item.city}</p>
+            <p>Postal Code: {item.postCode}</p>
+            <p>State: {item.state}</p>
+            <p>Phone: {item.phone}</p>
+          </>
+        )}
+        <Button onClick={toggleMoreInfo}>
+          {showMoreInfo ? 'Close' : 'More Info'}
+        </Button>
+      </>
     );
   };
+  // const renderItem = (item) => {
+  //   return (
+  //     <div>
+  //       <Meta
+  //         title={item.first +" "+ item.last}
+  //         description={
+  //           <>
+  //             Email : {item.email}
+  //             <br />
+  //             Username : {item.username}
+  //           </>
+  //         }
+  //       />
+  //       {/* Additional content specific to each item */}
+  //     </div>
+  //   );
+  // };
 
-  return (
-    <>
-      <Input.Search
+//   return (
+//     <>
+//       <Input.Search
+//         style={{ maxWidth: 500, display: "flex", margin: "auto" }}
+//         onSearch={(value) => {
+//           setSearchedText(value);
+//           console.log(SearchedText);
+//         }}
+//       ></Input.Search>
+
+//       <Card style={{ display: "flex", margin: "auto" }}>
+//         {dataArray &&
+//           dataArray.length > 0 &&
+//           dataArray.map((item, index) => (
+//             <Card.Grid key={index}>
+//               <Card
+//                 title={item.title}
+//                 hoverable
+//                 style={{ width: 240 }}
+//                 cover={<img alt="example" src={item.thumb_Url} />}
+//               >
+//                 {renderItem(item)}
+//               </Card>
+//             </Card.Grid>
+//           ))}
+//       </Card>
+//       {endOfUser && (
+//         <div>
+//           {" "}
+//           <p
+//             style={{
+//               display: "flex",
+//               justifyContent: "center",
+//               alignItems: "center",
+//             }}
+//           >
+//             {" "}
+//             End of users
+//           </p>
+//         </div>
+//       )}
+//       {/* {loading && <Loading />} */}
+//     </>
+
+// );
+
+return (
+  <>
+  <ConfigProvider theme={theme}>
+
+  <Input.Search
         style={{ maxWidth: 500, display: "flex", margin: "auto" }}
         onSearch={(value) => {
           setSearchedText(value);
           console.log(SearchedText);
         }}
       ></Input.Search>
-      <Card style={{ display: "flex", margin: "auto" }}>
-        { data_array &&
-          data_array.length > 0 && data_array.map((item,index) => (
-          <Card.Grid key={index}>
-            <Card
-              title={item.title}
-              hoverable
-              style={{ width: 240 }}
-              cover={<img alt="example" src={item.thumb_Url} />}
-            >
-              {renderItem(item)}
-            </Card>
-          </Card.Grid>
-        ))}
-      </Card>
-      <Loading/>
-    </>
-  );
+
+<Card style={{ display: 'flex', margin: 'auto' }}>
+    {dataArray &&
+      dataArray.length > 0 &&
+      dataArray.map((item, index) => (
+        <Card.Grid key={index}>
+          <Card
+            title={index}
+            hoverable
+            style={{ width: 240 }}
+            cover={<img alt="example" src={item.thumbUrl} />}
+          >
+            {renderItem(item)}
+          </Card>
+        </Card.Grid>
+      ))}
+  </Card>
+  {endOfUser && (
+            <div>
+              {" "}
+              <p
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {" "}
+                End of users
+              </p>
+            </div>
+          )}
+
+  </ConfigProvider>
+  
+
+  </>
+  
+
+);
+
+
+
+
+
+
+
+
+
+
+
+ 
 }
 export default HomePage;
+
+
+
+

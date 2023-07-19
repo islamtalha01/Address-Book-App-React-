@@ -3,8 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./style.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <head>
+  // <React.StrictMode>
+    
+  // </React.StrictMode>,
+  
+    <div>
+     <head>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link
@@ -13,5 +17,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       />
     </head>
     <App />
-  </React.StrictMode>,
+    </div>
+  
 );
