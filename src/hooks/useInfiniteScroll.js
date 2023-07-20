@@ -6,13 +6,13 @@ const [dataArray, setDataSource] = useState([]);
 const [batchSize,setBatchSize]=useState(50)
 const [endOfusers,setEndOfUsers]=useState(false)
 const [loading, setLoading]= useState(true)
-
+let count=0;
     const Loader = async () => {
-        const dataArray = [];
+       const fetchData=[]
         try {
           if(batchSize<=1000)
           {
-            const response = await axios.get(`https://randomuser.me/api/?results=${batchSize}`);
+            const response = await axios.get("https://randomuser.me/api/?results=50");
             console.log(batchSize)
             const results = response.data.results;
             // console.log(response.data);
@@ -23,7 +23,7 @@ const [loading, setLoading]= useState(true)
               const email = element.email;
               const userName = element.login.username;
               const thumbnailUrl = element.picture.thumbnail;
-              const street=element.location.street.name+element.location.street.number;
+              const street=element.location.street.name+element.location.street.number
               const city=element.location.city
               const state=element.location.state
               const postCode=element.location.postcode
@@ -44,13 +44,14 @@ const [loading, setLoading]= useState(true)
                 phone:phone,
               };
                
-               console.log(detail)
-        
-              dataArray.push(detail);
+            //    console.log(detail)
+             console.log("data")
+              
+              fetchData.push(detail);
             });
         
             
-            setDataSource((prev)=>[...prev,...dataArray]); 
+            setDataSource((prev)=>[...prev,...fetchData]); 
           }
           else
           {
@@ -70,13 +71,15 @@ const [loading, setLoading]= useState(true)
           // setLoading(true)    
           
           setBatchSize((prev)=> {
+
             if(prev >=1000)
             {
                  console.log("hi")
                  setEndOfUsers(true)
                  return prev;
             } 
-            return (prev+50)
+            
+            return prev+50
             
           }); 
              
@@ -87,7 +90,7 @@ const [loading, setLoading]= useState(true)
       useEffect(()=>
       {
         Loader();
-      
+        console.log(batchSize)
       },[batchSize])
       
       useEffect(() => {
@@ -95,7 +98,7 @@ const [loading, setLoading]= useState(true)
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
       }, []);
-
+  console.log(count)
       return {dataArray,endOfusers};
         
 }
@@ -104,65 +107,3 @@ const [loading, setLoading]= useState(true)
 
 export default useInfiniteScroll;
 
-
-// function setBatchSize (prev)
-// {
-//     if(prev>=1000)
-//     {
-              
-//               setEnd0fusers(true);
-              
-//     }
-//     console.log(End0fusers)
-//    //if bactchsizesum>1000 ser enf of user to true
-// }
-// const Loader = async () => {
-//   const dataArray = [];
-//   try {
-//     const response = await axios.get(`https://randomuser.me/api/?results=${batch_size}`);
-//     const results = response.data;
-//     console.log(response.data);
-//     setLoading(false)
-//     results.forEach((element) => {
-//       const firstName = element.name.first;
-//       const lastName = element.name.last;
-//       const email = element.email;
-//       const userName = element.login.username;
-//       const thumbnail_Url = element.picture.thumbnail;
-
-//       //location.street, location.city,location.state ,location.postcode,phoone ,cell field
-
-//       const detail = {
-//         first: firstName,
-//         last: lastName,
-//         email: email,
-//         username: userName,
-//         thumb_Url: thumbnail_Url,
-//       };
-
-//       dataArray.push(detail);
-//     });
-
-
-//     setDataSource((prev)=>[...prev,...dataArray]); //keep in mind you are not keeping the state immutable fix it later
-//     // console.log(dataArray);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
-// useEffect(() => {
-//   fetchData();
-//   const handleScroll = (e) => {
-//     const scrollHeight = e.target.documentElement.scrollHeight;
-//     const currentHeight =
-//       e.target.documentElement.scrollTop + window.innerHeight;
-//     if (currentHeight + 1 >= scrollHeight) {
-//       setLoading(true)    
-//       setBatchSize((prev)=>{prev+50});
-//     }
-//   };
-
-//   window.addEventListener("scroll", handleScroll);
-//   return () => window.removeEventListener("scroll", handleScroll);
-// }, [batch_size]);
