@@ -5,9 +5,9 @@ import { theme } from "./styles";
 const { Meta } = Card;
 
 function HomePage() {
-  const { dataArray, endOfUser } = useInfiniteScroll();
+  const { dataArray,endOfUsers,loading} = useInfiniteScroll();
+  console.log(dataArray.length,endOfUsers,loading)
   const [cardStates,setCardStates]=useState({})
- 
   const toggleMoreInfo = (index) => {
     
 
@@ -22,7 +22,7 @@ function HomePage() {
     return (
       <>
       <Meta
-          title={item.first +" "+ item.last}
+          title={item.first +" "+ item.last}  
           description={
             <>
               Email : {item.email}
@@ -49,7 +49,7 @@ function HomePage() {
   
 return (
   <>
-  <ConfigProvider theme={theme}>
+  {/* <ConfigProvider theme={theme}> */}
 
   <Input.Search
         style={{ maxWidth: 500, display: "flex", margin: "auto" }}
@@ -69,13 +69,14 @@ return (
             hoverable
             style={{ width: 240 }}
             cover={<img alt="example" src={item.thumbUrl} />}
+            loading={loading}
           >
             {renderItem(item,index)}
           </Card>
         </Card.Grid>
       ))}
   </Card>
-  {endOfUser && (
+  {endOfUsers && (
             <div>
               {" "}
               <p
@@ -91,7 +92,7 @@ return (
             </div>
           )}
 
-  </ConfigProvider>
+  {/* </ConfigProvider> */}
   
 
   </>

@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 function useInfiniteScroll()
 {
-const [dataArray, setDataSource] = useState([]);
-const [batchSize,setBatchSize]=useState(50)
-const [endOfusers,setEndOfUsers]=useState(false)
+const [dataArray, setDataArray] = useState([]);
+const [totalUsers,setTotalUser]=useState(50)
+const [endOfUsers,setEndOfUsers]=useState(false)
 const [loading, setLoading]= useState(true)
-let count=0;
+
     const Loader = async () => {
        const fetchData=[]
         try {
-          if(batchSize<=1000)
+          if(totalUsers<=1000)
           {
             const response = await axios.get("https://randomuser.me/api/?results=50");
-            console.log(batchSize)
+            
             const results = response.data.results;
             // console.log(response.data);
             // setLoading(false)
@@ -30,7 +31,7 @@ let count=0;
               const phone=element.cell
               
               //location.street, location.city,location.state ,location.postcode,phoone ,cell field
-        
+               
               const detail = {
                 first: firstName,
                 last: lastName,
@@ -45,13 +46,13 @@ let count=0;
               };
                
             //    console.log(detail)
-             console.log("data")
+             
               
               fetchData.push(detail);
             });
         
             
-            setDataSource((prev)=>[...prev,...fetchData]); 
+            setDataArray((prev)=>[...prev,...fetchData]); 
           }
           else
           {
@@ -70,7 +71,7 @@ let count=0;
         if (currentHeight + 1 >= scrollHeight) {
           // setLoading(true)    
           
-          setBatchSize((prev)=> {
+          setTotalUser((prev)=> {
 
             if(prev >=1000)
             {
@@ -89,17 +90,18 @@ let count=0;
       };
       useEffect(()=>
       {
+        setLoading(true)
         Loader();
-        console.log(batchSize)
-      },[batchSize])
+        setLoading(false)
+      },[totalUsers])
       
       useEffect(() => {
         
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
       }, []);
-  console.log(count)
-      return {dataArray,endOfusers};
+       console.log(endOfUsers) //endOfUser state is not being aceesed there
+      return {dataArray,endOfUsers,loading};
         
 }
 
