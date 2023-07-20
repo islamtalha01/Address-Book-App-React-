@@ -3,6 +3,7 @@ import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import { useState } from "react";
 import { theme } from "./styles";
 const { Meta } = Card;
+
 function HomePage() {
   const { dataArray, endOfUser } = useInfiniteScroll();
   const [showMoreInfo, setShowMoreInfo] = useState(false);
@@ -38,70 +39,7 @@ function HomePage() {
       </>
     );
   };
-  // const renderItem = (item) => {
-  //   return (
-  //     <div>
-  //       <Meta
-  //         title={item.first +" "+ item.last}
-  //         description={
-  //           <>
-  //             Email : {item.email}
-  //             <br />
-  //             Username : {item.username}
-  //           </>
-  //         }
-  //       />
-  //       {/* Additional content specific to each item */}
-  //     </div>
-  //   );
-  // };
-
-//   return (
-//     <>
-//       <Input.Search
-//         style={{ maxWidth: 500, display: "flex", margin: "auto" }}
-//         onSearch={(value) => {
-//           setSearchedText(value);
-//           console.log(SearchedText);
-//         }}
-//       ></Input.Search>
-
-//       <Card style={{ display: "flex", margin: "auto" }}>
-//         {dataArray &&
-//           dataArray.length > 0 &&
-//           dataArray.map((item, index) => (
-//             <Card.Grid key={index}>
-//               <Card
-//                 title={item.title}
-//                 hoverable
-//                 style={{ width: 240 }}
-//                 cover={<img alt="example" src={item.thumb_Url} />}
-//               >
-//                 {renderItem(item)}
-//               </Card>
-//             </Card.Grid>
-//           ))}
-//       </Card>
-//       {endOfUser && (
-//         <div>
-//           {" "}
-//           <p
-//             style={{
-//               display: "flex",
-//               justifyContent: "center",
-//               alignItems: "center",
-//             }}
-//           >
-//             {" "}
-//             End of users
-//           </p>
-//         </div>
-//       )}
-//       {/* {loading && <Loading />} */}
-//     </>
-
-// );
-
+  
 return (
   <>
   <ConfigProvider theme={theme}>
