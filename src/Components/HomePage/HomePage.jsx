@@ -5,17 +5,24 @@ import { theme } from "./styles";
 const { Meta } = Card;
 
 function HomePage() {
-  const { dataArray, endOfUser } = useInfiniteScroll();
-  const [showMoreInfo, setShowMoreInfo] = useState(false);
-  const toggleMoreInfo = () => {
-    setShowMoreInfo(!showMoreInfo);
+  const { dataArray,endOfUsers,loading} = useInfiniteScroll();
+  console.log(dataArray.length,endOfUsers,loading)
+  const [cardStates,setCardStates]=useState({})
+  const toggleMoreInfo = (index) => {
+    
+
+    setCardStates((prevState)=> ({...prevState,[index]:!prevState[index]}))
+   
+    
+    
   };
 
-  const renderItem = (item) => {
+  const renderItem = (item,index) => {
+    const isMoreInfoVisible=cardStates[index];
     return (
       <>
       <Meta
-          title={item.first +" "+ item.last}
+          title={item.first +" "+ item.last}  
           description={
             <>
               Email : {item.email}
@@ -24,7 +31,7 @@ function HomePage() {
             </>
           }
         />
-        {showMoreInfo && (
+        {isMoreInfoVisible && (
           <>
             <p>Street: {item.city}</p> 
             <p>City: {item.city}</p>
@@ -33,8 +40,8 @@ function HomePage() {
             <p>Phone: {item.phone}</p>
           </>
         )}
-        <Button onClick={toggleMoreInfo}>
-          {showMoreInfo ? 'Close' : 'More Info'}
+        <Button onClick={() => toggleMoreInfo(index)}>
+          {isMoreInfoVisible ? 'Close' : 'More Info'}
         </Button>
       </>
     );
@@ -42,7 +49,7 @@ function HomePage() {
   
 return (
   <>
-  <ConfigProvider theme={theme}>
+  {/* <ConfigProvider theme={theme}> */}
 
   <Input.Search
         style={{ maxWidth: 500, display: "flex", margin: "auto" }}
@@ -62,13 +69,14 @@ return (
             hoverable
             style={{ width: 240 }}
             cover={<img alt="example" src={item.thumbUrl} />}
+            loading={loading}
           >
-            {renderItem(item)}
+            {renderItem(item,index)}
           </Card>
         </Card.Grid>
       ))}
   </Card>
-  {endOfUser && (
+  {endOfUsers && (
             <div>
               {" "}
               <p
@@ -84,7 +92,7 @@ return (
             </div>
           )}
 
-  </ConfigProvider>
+  {/* </ConfigProvider> */}
   
 
   </>
@@ -105,6 +113,8 @@ return (
  
 }
 export default HomePage;
+
+
 
 
 

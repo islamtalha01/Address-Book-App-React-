@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useRef } from "react";
 import axios from "axios";
+import React, { useEffect, } from 'react';
 
-function useInfiniteScroll()
+function useFetchData()
 {
 const [dataArray, setDataArray] = useState([]);
-const [totalUsers,setTotalUser]=useState(50)
-const [endOfUsers,setEndOfUsers]=useState(false)
 const [loading, setLoading]= useState(true)
-
-    const Loader = async () => {
+const isFirstRender = useRef(true);
+const [totalUsers,setTotalUser]=useState()
+    const fetch = async () => {
        const fetchData=[]
         try {
           if(totalUsers<=1000)
@@ -51,7 +51,7 @@ const [loading, setLoading]= useState(true)
               fetchData.push(detail);
             });
         
-            
+        
             setDataArray((prev)=>[...prev,...fetchData]); 
           }
           else
@@ -65,47 +65,39 @@ const [loading, setLoading]= useState(true)
          
       };
       
-      const handleScroll = (e) => {
-        const scrollHeight = e.target.documentElement.scrollHeight;
-        const currentHeight = e.target.documentElement.scrollTop + window.innerHeight;
-        if (currentHeight + 1 >= scrollHeight) {
-          // setLoading(true)    
-          
-          setTotalUser((prev)=> {
-
-            if(prev >=1000)
-            {
-                 console.log("hi")
-                 setEndOfUsers(true)
-                 return prev;
-            } 
-            
-            return prev+50
-            
-          }); 
-             
-            // if(prev>=1000){setEndOfUsers(true);return }
       
-        }
-      };
       useEffect(()=>
       {
-        setLoading(true)
-        Loader();
-        setLoading(false)
-      },[totalUsers])
+
+       
+            if (isFirstRender.current) {
+                // Code to be executed only on the first render
+                console.log('First render');
+
+
+                setLoading(true)
+                loader()
+                setLoading(false)
+
+                isFirstRender.current = false;
+              } else {
+                // Code to be executed on subsequent renders
+                setLoading(true)
+                const timeoutId = setTimeout(loader(), 5000); // Set a timeout for 5 seconds to fetch the next batch during idle time
+                
+                setLoading(false)
+                return () => clearTimeout(timeoutId); // Clear the timeout if the component unmounts or rerenders before the timeout is reached
+              }
+          
+              
+            },[totalUsers]) // Empty dependency array to ensure it runs only once on mount
+        
       
-      useEffect(() => {
-        
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-      }, []);
-       console.log(endOfUsers) //endOfUser state is not being aceesed there
-      return {dataArray,endOfUsers,loading};
-        
+     return {dataArray,loading}   
 }
 
 
 
-export default useInfiniteScroll;
+export default useFetchData;
+
 

@@ -10,7 +10,7 @@ export const theme = Object.freeze({
       colorLinkHover: "#00AA67",
       wireframe: false,
       fontSize: 14,
-      borderRadius: 6,
+      borderRadius: 14,
       sizeStep: 4,
       fontFamily: `'Nunito', 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu','Helvetica Neue',
