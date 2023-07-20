@@ -6,12 +6,19 @@ const { Meta } = Card;
 
 function HomePage() {
   const { dataArray, endOfUser } = useInfiniteScroll();
-  const [showMoreInfo, setShowMoreInfo] = useState(false);
-  const toggleMoreInfo = () => {
-    setShowMoreInfo(!showMoreInfo);
+  const [cardStates,setCardStates]=useState({})
+ 
+  const toggleMoreInfo = (index) => {
+    
+
+    setCardStates((prevState)=> ({...prevState,[index]:!prevState[index]}))
+   
+    
+    
   };
 
-  const renderItem = (item) => {
+  const renderItem = (item,index) => {
+    const isMoreInfoVisible=cardStates[index];
     return (
       <>
       <Meta
@@ -24,7 +31,7 @@ function HomePage() {
             </>
           }
         />
-        {showMoreInfo && (
+        {isMoreInfoVisible && (
           <>
             <p>Street: {item.city}</p> 
             <p>City: {item.city}</p>
@@ -33,8 +40,8 @@ function HomePage() {
             <p>Phone: {item.phone}</p>
           </>
         )}
-        <Button onClick={toggleMoreInfo}>
-          {showMoreInfo ? 'Close' : 'More Info'}
+        <Button onClick={() => toggleMoreInfo(index)}>
+          {isMoreInfoVisible ? 'Close' : 'More Info'}
         </Button>
       </>
     );
@@ -63,7 +70,7 @@ return (
             style={{ width: 240 }}
             cover={<img alt="example" src={item.thumbUrl} />}
           >
-            {renderItem(item)}
+            {renderItem(item,index)}
           </Card>
         </Card.Grid>
       ))}
@@ -105,6 +112,8 @@ return (
  
 }
 export default HomePage;
+
+
 
 
 
