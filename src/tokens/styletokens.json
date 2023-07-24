@@ -1,0 +1,18 @@
+
+{
+    "token": {
+      "colorPrimary": "#5C469C",
+      "colorLink": "blue",
+      "colorPrimaryHover": "#5C469C",
+      "colorLinkActive": "#00AA67",
+      "colorLinkHover": "#00AA67",
+      "wireframe": false,
+      "fontSize": "14px",
+      "borderRadius": "14px",
+      "sizeStep": 4,
+      "fontFamily": "'Nunito', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Helvetica Neue', sans-serif",
+      "lineHeight": 1.5714285714285714,
+      "colorError": "#ED0131"
+    }
+  }
+  
