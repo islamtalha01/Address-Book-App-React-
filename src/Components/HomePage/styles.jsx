@@ -1,5 +1,5 @@
 export const theme = Object.freeze({
-    // apply ant design theme
+   
     token: {
       // primary color
       colorPrimary: "#5C469C",

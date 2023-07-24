@@ -1,48 +1,51 @@
 import { useEffect, useState } from "react";
+// console.log("hi i am entring in infitne scroll")
+
 import useFetchData from "./useDataFetch";
 
-const {totalUsers}=useFetchData()
-function useInfiniteScroll()
-{
-//const [totalUsers,setTotalUser]=useState(50)
+
+function useInfiniteScroll_copy(){
+const {dataArray,preFetch,isFirstRender,totalUsers,loading}=useFetchData();
 const [endOfUsers,setEndOfUsers]=useState(false)
-const [hidden,setHidden]=useState(true)
+const [showAble,setShowAble]=useState(true)
+const [updtDataArray,setUpdtDataArray]=useState([])
+// const isFirstRender = useRef(true);
 
    
-      
+if(isFirstRender)
+{
+     setUpdtDataArray([dataArray])
+}
       const handleScroll = (e) => {
         const scrollHeight = e.target.documentElement.scrollHeight;
         const currentHeight = e.target.documentElement.scrollTop + window.innerHeight;
         if (currentHeight + 1 >= scrollHeight) {
           // setLoading(true)    
           
-          // setTotalUser((prev)=> {
+          
 
-          //   if(prev >=1000)
-          //   {
-          //        console.log("hi")
-          //        setEndOfUsers(true)
-          //        return prev;
-          //   } 
+            if(totalUsers >=1000)
+            {
+                 console.log("hi")
+                 setEndOfUsers(true)
+                 return prev;
+            } 
             
-          //   return prev+50
+                 
+                  
+                   if(!isFirstRender)
+                   {
+                        setUpdtDataArray((prev)=>{[...prev,...preFetch]})
+                   }
+               
+               
+              
+            
+
 
             
-          // }); 
+          
 
-
-
-
-          if(totalUsers>=1000)
-          {
-            setEndOfUsers(true)
-
-          }
-          else
-          {
-            sethidden(false)
-          }   
-            // if(prev>=1000){setEndOfUsers(true);return }
       
         }
       };
@@ -50,14 +53,26 @@ const [hidden,setHidden]=useState(true)
       useEffect(() => {
         
         window.addEventListener("scroll", handleScroll);
+        console.log("bye")
         return () => window.removeEventListener("scroll", handleScroll);
+        
+           
       }, []);
-       console.log(endOfUsers) //endOfUser state is not being aceesed there
-      return {endOfUsers,totalUsers};
+
+       
+      return {updtDataArray,endOfUsers,showAble,loading};
         
 }
 
 
 
-export default useInfiniteScroll;
+export default useInfiniteScroll_copy;
+
+
+
+
+
+
+
+
 
