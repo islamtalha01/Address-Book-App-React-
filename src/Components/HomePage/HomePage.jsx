@@ -154,7 +154,8 @@
 
 import { Input, Card,Button,ConfigProvider, Space ,Row,Col} from "antd";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
-
+import '../../style.css'
+import { Switch } from "antd";
 // import useInfiniteScroll_copy from "../../hooks/useInfiniteScroll _copy";
 
 // import * as styletoken from "../../tokens/tokens.json"
@@ -170,6 +171,7 @@ function HomePage() {
   
   // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
   // console.log("hi i am here after gettingdat frm other module in  hompage")
+ 
   const toggleMoreInfo = (index) => {
     
 
@@ -187,6 +189,7 @@ function HomePage() {
             whiteSpace: 'nowrap',
             display: 'inline-block',
             borderRadius: '4px',
+            wordWrap: 'break-word',
             /* Add more styles as needed */
           }}
           title={item.first +" "+ item.last}  
@@ -217,7 +220,7 @@ function HomePage() {
 return (
   <>
  
-
+ 
   <Input.Search
         style={{ maxWidth: 500, display: "flex", margin: "auto" }}
         onSearch={(value) => {
@@ -235,9 +238,11 @@ return (
         <Col  key={index} span={6}>
           <Card 
             hoverable
-            style={{ width: 240 }}
-            cover={<img alt="example" src={item.thumbUrl} />}
-            loading={loading}>
+       
+            cover={<img className="thumbnail-img" alt="example" src={item.thumbUrl} />}
+            loading={loading}
+            bodyStyle={{ width:'10px',padding:'10px', }}
+            >
             
           
             {renderItem(item,index)}
