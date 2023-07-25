@@ -152,7 +152,7 @@
 
 
 
-import { Input, Card,Button,ConfigProvider, Space ,Row,Col} from "antd";
+import { Input, Card,Button,ConfigProvider, Space ,Row,Col,Avatar} from "antd";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import '../../style.css'
 import { Switch } from "antd";
@@ -190,29 +190,39 @@ function HomePage() {
             display: 'inline-block',
             borderRadius: '4px',
             wordWrap: 'break-word',
+            
             /* Add more styles as needed */
           }}
-          title={item.first +" "+ item.last}  
+          title={item.first +" "+ item.last} 
+          avatar={<Avatar src={item.thumbUrl}  />} 
           description={
+
+
             <>
               Email:{item.email}
               <br />
               Username :{item.userName}
+            
+            
+            {isMoreInfoVisible && (
+              <>
+                <p>Street: {item.city}</p> 
+                <p>City: {item.city}</p>
+                <p>Postal Code: {item.postCode}</p>
+                <p>State: {item.state}</p>
+                <p>Phone: {item.phone}</p>
+              </>
+            )}
+
+
+            <Button onClick={() => toggleMoreInfo(index)}>
+              {isMoreInfoVisible ? 'Close' : 'More Info'}
+            </Button>
             </>
+            
           }
         />
-        {isMoreInfoVisible && (
-          <>
-            <p>Street: {item.city}</p> 
-            <p>City: {item.city}</p>
-            <p>Postal Code: {item.postCode}</p>
-            <p>State: {item.state}</p>
-            <p>Phone: {item.phone}</p>
-          </>
-        )}
-        <Button onClick={() => toggleMoreInfo(index)}>
-          {isMoreInfoVisible ? 'Close' : 'More Info'}
-        </Button>
+        
       </>
     );
   };
@@ -239,9 +249,9 @@ return (
           <Card 
             hoverable
        
-            cover={<img className="thumbnail-img" alt="example" src={item.thumbUrl} />}
+            // cover={<img style={{width:'150px',height:'150px'}} alt="example" src={item.thumbUrl} />}
             loading={loading}
-            bodyStyle={{ width:'10px',padding:'10px', }}
+            
             >
             
           
