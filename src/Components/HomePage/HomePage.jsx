@@ -1,13 +1,13 @@
 import {
-  Input,
   Card,
   Button,
-  ConfigProvider,
-  Space,
   Row,
   Col,
-  Avatar,Skeleton
+  Avatar,theme
 } from "antd";
+const { useToken } = theme;
+import React, { useContext } from 'react';
+import { AppContext } from '../../AppContext';
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import "../../style.css";
 
@@ -17,11 +17,20 @@ import { useState,useEffect } from "react";
 const { Meta } = Card;
 
 function HomePage() {
+  const { token } = useToken();
   const { dataArray, endOfUsers } = useInfiniteScroll();
   // console.log(dataArray.length, endOfUsers, loading);
-
+  const { searchText } = useContext(AppContext);
   const [cardStates, setCardStates] = useState({});
-  const [query,setQuery]=useState('')
+  const filteredData = {if(searchText){dataArray.filter((item) => {
+    const fullName = `${item.first} ${item.last}`;
+    return fullName.toLowerCase().includes(searchText.toLowerCase());
+  });}
+   else
+   {
+     return dataArray
+   }
+}
   // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
  
  
@@ -41,7 +50,7 @@ function HomePage() {
         <Meta
           style={{
             display: "block",
-            borderRadius: "4px",
+            borderRadius: token.borderRadiusXS,
           }}
           title={item.first + " " + item.last}
           avatar={<Avatar src={item.thumbUrl} />}
@@ -77,12 +86,12 @@ function HomePage() {
   return (
     <>
       
-
+     
       <div style={{ marginTop: "20px" }}>
-        <Row gutter={[16, 16]}>
-          {dataArray.length > 0 &&
-            dataArray.map((item, index) => (
-              <Col key={index} span={4}>
+        <Row gutter={[10, 10]}>
+          {filteredData.length > 0 &&
+            filteredData.map((item, index) => (
+              <Col key={index} span={6}>
                 
                   <Card
                     hoverable

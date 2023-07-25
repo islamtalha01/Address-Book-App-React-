@@ -1,12 +1,17 @@
 import { Input, Typography, Layout } from "antd";
-const { Header, Footer, Sider, Content } = Layout;
-function AppHeader() {
+const { Header} = Layout;
+import React, { useContext } from 'react';
+import { AppContext } from '../../AppContext';
 
+
+  
+function AppHeader() {
+	const { searchText, setSearchText } = useContext(AppContext);
 	const handleSearch=(value)=>
 	{
   
-		// setQuery(value);
-		console.log("done");
+		setSearchText(value);
+		console.log(value);
 	  
 	}
   return (
@@ -24,8 +29,12 @@ function AppHeader() {
 
 		  </Input.Search>
         </Typography.Title>
+		{/* <p>
+			{searchText}
+		</p> */}
       </Header>
     </>
   );
+  
 }
 export default AppHeader;
