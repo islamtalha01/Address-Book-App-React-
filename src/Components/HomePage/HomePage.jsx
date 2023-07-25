@@ -6,27 +6,25 @@ import {
   Space,
   Row,
   Col,
-  Avatar,
+  Avatar,Skeleton
 } from "antd";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import "../../style.css";
-import { Switch } from "antd";
-// import useInfiniteScroll_copy from "../../hooks/useInfiniteScroll _copy";
 
-// import * as styletoken from "../../tokens/tokens.json"
-import { useState } from "react";
-// import { theme } from "./styles";
+// import useInfiniteScroll_copy from "../../hooks/useInfiniteScroll _copy";
+import { useState,useEffect } from "react";
+
 const { Meta } = Card;
 
 function HomePage() {
-  const { dataArray, endOfUsers, loading } = useInfiniteScroll();
-  console.log(dataArray.length, endOfUsers, loading);
+  const { dataArray, endOfUsers } = useInfiniteScroll();
+  // console.log(dataArray.length, endOfUsers, loading);
 
   const [cardStates, setCardStates] = useState({});
-
+  const [query,setQuery]=useState('')
   // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
-  // console.log("hi i am here after gettingdat frm other module in  hompage")
-
+ 
+ 
   const toggleMoreInfo = (index) => {
     setCardStates((prevState) => ({
       ...prevState,
@@ -78,26 +76,22 @@ function HomePage() {
 
   return (
     <>
-      <Input.Search
-        style={{ maxWidth: 500, display: "flex", margin: "auto" }}
-        onSearch={(value) => {
-          setSearchedText(value);
-          console.log(SearchedText);
-        }}
-      ></Input.Search>
+      
 
       <div style={{ marginTop: "20px" }}>
         <Row gutter={[16, 16]}>
           {dataArray.length > 0 &&
             dataArray.map((item, index) => (
-              <Col key={index} span={6}>
-                <Card
-                  hoverable
-                  // cover={<img style={{width:'150px',height:'150px'}} alt="example" src={item.thumbUrl} />}
-                  loading={loading}
-                >
-                  {renderItem(item, index)}
-                </Card>
+              <Col key={index} span={4}>
+                
+                  <Card
+                    hoverable
+                    // cover={<img style={{width:'150px',height:'150px'}} alt="example" src={item.thumbUrl} />}
+                    
+                  >
+                    {renderItem(item, index)}
+                  </Card>
+              
               </Col>
             ))}
         </Row>
