@@ -22,17 +22,45 @@ function HomePage() {
   // console.log(dataArray.length, endOfUsers, loading);
   const { searchText } = useContext(AppContext);
   const [cardStates, setCardStates] = useState({});
-  const filteredData = {if(searchText){dataArray.filter((item) => {
-    const fullName = `${item.first} ${item.last}`;
-    return fullName.toLowerCase().includes(searchText.toLowerCase());
-  });}
-   else
-   {
-     return dataArray
-   }
-}
+  
+  console.log(dataArray)
+
   // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
  
+
+
+
+console.log(typeof searchText)
+
+  const search = () => {
+    if (!dataArray.length) {
+      return dataArray; // Return the original array when dataArray is empty
+    }
+
+    const filteredData = dataArray.filter((item) => {
+      const fullName = `${item.first} ${item.last}`;
+      return fullName.toLowerCase().includes(searchText.toLowerCase());
+    });
+
+    return filteredData;
+  };
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
  
   const toggleMoreInfo = (index) => {
     setCardStates((prevState) => ({
@@ -89,8 +117,8 @@ function HomePage() {
      
       <div style={{ marginTop: "20px" }}>
         <Row gutter={[10, 10]}>
-          {filteredData.length > 0 &&
-            filteredData.map((item, index) => (
+          {search().length > 0 &&
+            search().map((item, index) => (
               <Col key={index} span={6}>
                 
                   <Card
