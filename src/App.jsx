@@ -1,7 +1,5 @@
 import { ConfigProvider, Layout, Row, Switch, theme, Space } from "antd";
-import AppHeader from "./Components/Header";
 import HomePage from "./Components/HomePage";
-import styletokens from "./tokens/styletokens.json";
 import * as lightTheme from "./ant-tokens/light.json";
 import * as darkTheme from "./ant-tokens/dark.json";
 import { useState } from "react";
@@ -38,7 +36,7 @@ function App() {
               onChange={handleChecked}
             />
           </Row>
-          <AppHeader />
+         
           <HomePage />
         </Layout>
       </Space>
