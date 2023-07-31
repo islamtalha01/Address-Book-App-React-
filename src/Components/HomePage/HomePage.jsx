@@ -70,6 +70,7 @@ function HomePage() {
                   <p>Postal Code: {item.postCode}</p>
                   <p>State: {item.state}</p>
                   <p>Phone: {item.phone}</p>
+                  <p>Nationality:{item.nat}</p>
                 </>
               )}
 

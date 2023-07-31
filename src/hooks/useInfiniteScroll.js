@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-function useInfiniteScroll()
+import React, { useContext } from 'react';
+import { AppContext } from '../AppContext';
+function useInfiniteScroll(nationality)
 {
 const [dataArray, setDataArray] = useState([]);
 const [totalUsers,setTotalUser]=useState(50)
 const [endOfUsers,setEndOfUsers]=useState(false)
 const [loading, setLoading]= useState(true)
-
-    const Loader = async () => {
+const {selectedNationality} = useContext(AppContext);
+    const Loader = async (selectedNationality) => {
        const fetchData=[]
         try {
           if(totalUsers<=1000)
           {
-            const response = await axios.get("https://randomuser.me/api/?results=50");
+            let apiUrl="https://randomuser.me/api/?results=50";
+
+            if(selectedNationality)
+            {
+              
+                apiUrl += `&nat=${selectedNationality}`;
+              
+            }
+            const response = await axios.get(apiUrl);
             
             const results = response.data.results;
             // console.log(response.data);
@@ -29,7 +38,7 @@ const [loading, setLoading]= useState(true)
               const state=element.location.state
               const postCode=element.location.postcode
               const phone=element.cell
-              
+              const nat=element.nat
               //location.street, location.city,location.state ,location.postcode,phoone ,cell field
                
               const detail = {
@@ -43,6 +52,7 @@ const [loading, setLoading]= useState(true)
                  state :state,
                 postCode:postCode,
                 phone:phone,
+                nat:nat,
               };
                
             //    console.log(detail)
@@ -91,9 +101,9 @@ const [loading, setLoading]= useState(true)
       useEffect(()=>
       {
         setLoading(true)
-        Loader();
+        Loader(selectedNationality);
         setLoading(false)
-      },[totalUsers])
+      },[totalUsers,selectedNationality])
       
       useEffect(() => {
         
