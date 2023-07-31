@@ -25,8 +25,7 @@ const {selectedNationality} = useContext(AppContext);
             const response = await axios.get(apiUrl);
             
             const results = response.data.results;
-            // console.log(response.data);
-            // setLoading(false)
+            
             results.forEach((element) => {
               const firstName = element.name.first;
               const lastName = element.name.last;
@@ -39,7 +38,7 @@ const {selectedNationality} = useContext(AppContext);
               const postCode=element.location.postcode
               const phone=element.cell
               const nat=element.nat
-              //location.street, location.city,location.state ,location.postcode,phoone ,cell field
+            
                
               const detail = {
                 first: firstName,
@@ -55,7 +54,7 @@ const {selectedNationality} = useContext(AppContext);
                 nat:nat,
               };
                
-            //    console.log(detail)
+           
              
               
               fetchData.push(detail);
@@ -79,7 +78,7 @@ const {selectedNationality} = useContext(AppContext);
         const scrollHeight = e.target.documentElement.scrollHeight;
         const currentHeight = e.target.documentElement.scrollTop + window.innerHeight;
         if (currentHeight + 1 >= scrollHeight) {
-          // setLoading(true)    
+           
           
           setTotalUser((prev)=> {
 

@@ -24,7 +24,7 @@ function AppHeader() {
 		  backgroundColor:'inherit',
           display: 'flex',
           alignItems: 'center',
-		  justifyContent:'center',margin:'20px'}} >
+		  justifyContent:'center',marginTop:'20px',marginBottom:'20px'}} >
         <Typography.Title style={{ textAlign: "center" }}>
           Address Book App
           <Input.Search  style={{margin:'10px'}}          value={searchText}
@@ -32,9 +32,7 @@ function AppHeader() {
 
 		  </Input.Search>
         </Typography.Title>
-		{/* <p>
-			{searchText}
-		</p> */}
+		
       </Header>
     </>
   );

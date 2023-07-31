@@ -70,7 +70,7 @@ function HomePage() {
                   <p>Postal Code: {item.postCode}</p>
                   <p>State: {item.state}</p>
                   <p>Phone: {item.phone}</p>
-                  <p>Nationality:{item.nat}</p>
+                  <p>Nationality: {item.nat}</p>
                 </>
               )}
 
@@ -88,50 +88,49 @@ function HomePage() {
   };
 
   return (
-    <>
-    <div style={{display:"flex",flexDirection:"column"}}>
+  <>
+   <AppHeader />
 
-    <AppHeader />
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <Sidebar />
-        <div>
-          
-            <Row gutter={[10, 10]}>
-              {search().length > 0 &&
-                search().map((item, index) => (
-                  <Col key={index} span={6}>
-                    <Card
-                      hoverable
-                      // cover={<img style={{width:'150px',height:'150px'}} alt="example" src={item.thumbUrl} />}
-                    >
-                      {renderItem(item, index)}
-                    </Card>
-                  </Col>
-                ))}
-            </Row>
-         
+    <Row>
+  <Col span={4}>
+    <Sidebar />
+  </Col>
+  <Col span={16}>
+    <Row gutter={[10, 10]} style={{ margin: "0px" }}>
+      {search().length > 0 &&
+        search().map((item, index) => (
+          <Col key={index} span={6} style={{ padding: "0px" }}>
+            <Card
+              hoverable
+              // cover={<img style={{width:'150px',height:'150px'}} alt="example" src={item.thumbUrl} />}
+            >
+              {renderItem(item, index)}
+            </Card>
+          </Col>
+        ))}
+    </Row>
+  </Col>
+</Row >
 
-          {endOfUsers && (
-            <div>
-              {" "}
-              <p
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                {" "}
-                End of users
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-      
-    </div>
-      
-    </>
+
+{/* {endOfUsers && (
+  <div>
+    {" "}
+    <p
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {" "}
+      End of users
+    </p>
+  </div>
+)} */}
+  
+     
+  </>
   );
 }
 export default HomePage;

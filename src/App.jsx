@@ -18,15 +18,14 @@ function App() {
     <AppProvider>
       <ConfigProvider
         theme={{
-          // algorithm: dark ? theme.darkAlgorithm : theme.lightAlgorithm,
           token: dark ? darkTheme : lightTheme,
-          // token: styletokens,
         }}
       >
         <Space direction="vertical" size={10}>
           <Layout
             style={{
-              display: "flex",
+              display: "flex",	height: "100vh",
+			  width:"100vw",
             }}
           >
             <Row justify="end" style={{ padding: "10px" }}>
@@ -36,11 +35,7 @@ function App() {
                 onChange={handleChecked}
               />
             </Row>
-
-            {/* <HomePage /> */}
-			
-         {/* <Sidebar /> */}
-         <Content/>
+            <Content />
           </Layout>
         </Space>
       </ConfigProvider>
@@ -48,12 +43,13 @@ function App() {
   );
 }
 function Content() {
-    return <div>
-        <Routes>
-          <Route eaxct path="/" element={<HomePage />}></Route>
-          <Route eaxct path="/settings" element={<SettingPage/>}></Route>
-        </Routes>
-      </div>
-    
-  };
+  return (
+    <div>
+      <Routes>
+        <Route eaxct path="/" element={<HomePage />}></Route>
+        <Route eaxct path="/settings" element={<SettingPage />}></Route>
+      </Routes>
+    </div>
+  );
+}
 export default App;
