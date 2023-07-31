@@ -88,7 +88,7 @@ function HomePage() {
 
   return (
     <>
-    <div style={{display:"flex",flexDirection:"column",flex:"1"}}>
+    <div style={{display:"flex",flexDirection:"column"}}>
 
     <AppHeader />
       <div style={{ display: "flex", flexDirection: "row" }}>

@@ -1,3 +1,3 @@
-import SettingPage from "./SettingsPage";
+import SettingPage from "./SettingPage";
 
 export default SettingPage 
