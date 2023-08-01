@@ -8,8 +8,9 @@ const Sidebar = () => {
     const navigate = useNavigate(); // Move useNavigate inside the functional component
      
   return (
-    <div>
-      <Menu
+    <>
+
+<Menu style={{height:"100%"}}
         onClick={({ key }) => {
           navigate(key);
           console.log(key); // Now you can use the navigate function inside the onClick handler
@@ -28,7 +29,9 @@ const Sidebar = () => {
         ]}
       ></Menu>
      
-    </div>
+    </>
+      
+    
   );
 };
 

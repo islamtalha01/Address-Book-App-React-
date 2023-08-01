@@ -21,7 +21,7 @@ function App() {
           token: dark ? darkTheme : lightTheme,
         }}
       >
-        {/* <Space direction="vertical" size={20}> */}
+       
           <Layout
             style={{
               display: "flex",	
@@ -37,7 +37,7 @@ function App() {
             </Row>
             <Content />
           </Layout>
-        {/* </Space> */}
+       
       </ConfigProvider>
     </AppProvider>
   );

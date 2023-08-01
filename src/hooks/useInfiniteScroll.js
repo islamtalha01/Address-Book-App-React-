@@ -4,14 +4,15 @@ import React, { useContext } from 'react';
 import { AppContext } from '../AppContext';
 function useInfiniteScroll(nationality)
 {
-const {selectedNationality,loading,setLoading} = useContext(AppContext);
+const {selectedNationality,loading,setLoading,setEndOfUsers,endOfUsers} = useContext(AppContext);
 const [dataArray, setDataArray] = useState([]);
 const [totalUsers,setTotalUser]=useState(50)
-console.log(loading)
+
 
     const Loader = async (selectedNationality) => {
        const fetchData=[]
         try {
+          
           if(totalUsers<=1000)
           {
             let apiUrl="https://randomuser.me/api/?results=50";
@@ -83,11 +84,11 @@ console.log(loading)
           setLoading(true)    
           
           setTotalUser((prev)=> {
-
+              console.log()
             if(prev >=1000)
             {
                  console.log("hi")
-                //  setEndOfUsers(true)
+                 setEndOfUsers(true)
                  return prev;
             } 
             
@@ -112,7 +113,7 @@ console.log(loading)
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
       }, []);
-       console.log() //endOfUser state is not being aceesed there
+        //endOfUser state is not being aceesed there
       return {dataArray};
         
 }
