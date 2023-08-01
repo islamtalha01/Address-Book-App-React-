@@ -1,23 +1,26 @@
 import { useEffect, useState ,useRef } from "react";
 import axios from "axios";
-import React, { useEffect, } from 'react';
-
+// console.log("hi i am entring in datafecth scroll")
 function useFetchData()
 {
 const [dataArray, setDataArray] = useState([]);
 const [loading, setLoading]= useState(true)
-const isFirstRender = useRef(true);
-const [totalUsers,setTotalUser]=useState()
+const  [preFetch,setPreFetch]=useState([])
+const isFirstRender=useRef(true)
+const [totalUsers,setTotalUser]=useState(50)
     const fetch = async () => {
+        
        const fetchData=[]
         try {
+       
           if(totalUsers<=1000)
           {
+            
             const response = await axios.get("https://randomuser.me/api/?results=50");
             
             const results = response.data.results;
-            // console.log(response.data);
-            // setLoading(false)
+           
+            
             results.forEach((element) => {
               const firstName = element.name.first;
               const lastName = element.name.last;
@@ -30,7 +33,7 @@ const [totalUsers,setTotalUser]=useState()
               const postCode=element.location.postcode
               const phone=element.cell
               
-              //location.street, location.city,location.state ,location.postcode,phoone ,cell field
+             
                
               const detail = {
                 first: firstName,
@@ -45,14 +48,23 @@ const [totalUsers,setTotalUser]=useState()
                 phone:phone,
               };
                
-            //    console.log(detail)
+          
              
-              
+             
               fetchData.push(detail);
+
             });
         
-        
-            setDataArray((prev)=>[...prev,...fetchData]); 
+            if(isFirstRender)
+            {
+                console.log(fetchData)
+                setDataArray([fetchData]);
+            }
+            
+            else{
+                setPreFetch([fetchData])
+            }
+             
           }
           else
           {
@@ -60,9 +72,11 @@ const [totalUsers,setTotalUser]=useState()
           }
       
         } catch (error) {
-          console.log(error);
+          console.log("error is",error);
         }
-         
+        
+        
+
       };
       
       
@@ -75,29 +89,32 @@ const [totalUsers,setTotalUser]=useState()
                 console.log('First render');
 
 
-                setLoading(true)
-                loader()
-                setLoading(false)
+                
+                fetch()
+               
 
                 isFirstRender.current = false;
-              } else {
-                // Code to be executed on subsequent renders
-                setLoading(true)
-                const timeoutId = setTimeout(loader(), 5000); // Set a timeout for 5 seconds to fetch the next batch during idle time
-                
-                setLoading(false)
-                return () => clearTimeout(timeoutId); // Clear the timeout if the component unmounts or rerenders before the timeout is reached
-              }
-          
+              } 
               
-            },[totalUsers]) // Empty dependency array to ensure it runs only once on mount
-        
+            },[]) 
+
+
+     useEffect(()=>{
+            
+
+        fetch()
+       
       
-     return {dataArray,loading}   
+     },[totalUsers])    
+      
+     return {dataArray,loading,preFetch,isFirstRender,totalUsers}   
 }
 
 
 
 export default useFetchData;
+
+
+  
 
 

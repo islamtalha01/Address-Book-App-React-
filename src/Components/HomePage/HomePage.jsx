@@ -1,104 +1,55 @@
-import { Input, Card,Button,ConfigProvider } from "antd";
+import {
+  Card,
+  Button,
+  Row,
+  Col,
+  Avatar,theme
+} from "antd";
+const { useToken } = theme;
+import React, { useContext } from 'react';
+import { AppContext } from '../../AppContext';
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
-import { useState } from "react";
-import { theme } from "./styles";
+import "../../style.css";
+
+// import useInfiniteScroll_copy from "../../hooks/useInfiniteScroll _copy";
+import { useState,useEffect } from "react";
+
 const { Meta } = Card;
 
 function HomePage() {
-  const { dataArray,endOfUsers,loading} = useInfiniteScroll();
-  console.log(dataArray.length,endOfUsers,loading)
-  const [cardStates,setCardStates]=useState({})
-  const toggleMoreInfo = (index) => {
-    
+  const { token } = useToken();
+  const { dataArray, endOfUsers } = useInfiniteScroll();
+  // console.log(dataArray.length, endOfUsers, loading);
+  const { searchText } = useContext(AppContext);
+  const [cardStates, setCardStates] = useState({});
+  
+  console.log(dataArray)
 
-    setCardStates((prevState)=> ({...prevState,[index]:!prevState[index]}))
-   
-    
-    
+  // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
+ 
+
+
+
+console.log(typeof searchText)
+
+  const search = () => {
+    if (!dataArray.length) {
+      return dataArray; // Return the original array when dataArray is empty
+    }
+
+    const filteredData = dataArray.filter((item) => {
+      const fullName = `${item.first} ${item.last}`;
+      return fullName.toLowerCase().includes(searchText.toLowerCase());
+    });
+
+    return filteredData;
   };
 
-  const renderItem = (item,index) => {
-    const isMoreInfoVisible=cardStates[index];
-    return (
-      <>
-      <Meta
-          title={item.first +" "+ item.last}  
-          description={
-            <>
-              Email : {item.email}
-              <br />
-              Username : {item.userName}
-            </>
-          }
-        />
-        {isMoreInfoVisible && (
-          <>
-            <p>Street: {item.city}</p> 
-            <p>City: {item.city}</p>
-            <p>Postal Code: {item.postCode}</p>
-            <p>State: {item.state}</p>
-            <p>Phone: {item.phone}</p>
-          </>
-        )}
-        <Button onClick={() => toggleMoreInfo(index)}>
-          {isMoreInfoVisible ? 'Close' : 'More Info'}
-        </Button>
-      </>
-    );
-  };
-  
-return (
-  <>
-  {/* <ConfigProvider theme={theme}> */}
 
-  <Input.Search
-        style={{ maxWidth: 500, display: "flex", margin: "auto" }}
-        onSearch={(value) => {
-          setSearchedText(value);
-          console.log(SearchedText);
-        }}
-      ></Input.Search>
 
-<Card style={{ display: 'flex', margin: 'auto' }}>
-    {dataArray &&
-      dataArray.length > 0 &&
-      dataArray.map((item, index) => (
-        <Card.Grid key={index}>
-          <Card
-            title={index}
-            hoverable
-            style={{ width: 240 }}
-            cover={<img alt="example" src={item.thumbUrl} />}
-            loading={loading}
-          >
-            {renderItem(item,index)}
-          </Card>
-        </Card.Grid>
-      ))}
-  </Card>
-  {endOfUsers && (
-            <div>
-              {" "}
-              <p
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                {" "}
-                End of users
-              </p>
-            </div>
-          )}
-
-  {/* </ConfigProvider> */}
   
 
-  </>
-  
 
-);
 
 
 
@@ -111,11 +62,94 @@ return (
 
 
  
+  const toggleMoreInfo = (index) => {
+    setCardStates((prevState) => ({
+      ...prevState,
+      [index]: !prevState[index],
+    }));
+
+    console.log("hi i am midway of hompage");
+  };
+
+  const renderItem = (item, index) => {
+    const isMoreInfoVisible = cardStates[index];
+    return (
+      <>
+        <Meta
+          style={{
+            display: "block",
+            borderRadius: token.borderRadiusXS,
+          }}
+          title={item.first + " " + item.last}
+          avatar={<Avatar src={item.thumbUrl} />}
+          description={
+            <>
+              <p>Email: {item.email}</p>
+
+              <p>Username : {item.userName} </p>
+
+              {isMoreInfoVisible && (
+                <>
+                  <p>Street: {item.city}</p>
+                  <p>City: {item.city}</p>
+                  <p>Postal Code: {item.postCode}</p>
+                  <p>State: {item.state}</p>
+                  <p>Phone: {item.phone}</p>
+                </>
+              )}
+
+              <Button
+                onClick={() => toggleMoreInfo(index)}
+                style={{ display: "block" }}
+              >
+                {isMoreInfoVisible ? "Close" : "More Info"}
+              </Button>
+            </>
+          }
+        />
+      </>
+    );
+  };
+
+  return (
+    <>
+      
+     
+      <div style={{ marginTop: "20px" }}>
+        <Row gutter={[10, 10]}>
+          {search().length > 0 &&
+            search().map((item, index) => (
+              <Col key={index} span={6}>
+                
+                  <Card
+                    hoverable
+                    // cover={<img style={{width:'150px',height:'150px'}} alt="example" src={item.thumbUrl} />}
+                    
+                  >
+                    {renderItem(item, index)}
+                  </Card>
+              
+              </Col>
+            ))}
+        </Row>
+      </div>
+
+      {endOfUsers && (
+        <div>
+          {" "}
+          <p
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {" "}
+            End of users
+          </p>
+        </div>
+      )}
+    </>
+  );
 }
 export default HomePage;
-
-
-
-
-
-
