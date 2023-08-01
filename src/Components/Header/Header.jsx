@@ -1,4 +1,4 @@
-import { Input, Typography, Layout } from "antd";
+import { Input, Typography, Layout, Space } from "antd";
 const { Header} = Layout;
 import React, { useContext } from 'react';
 import { AppContext } from '../../AppContext';
@@ -18,13 +18,14 @@ function AppHeader() {
 	}
   return (
     <>
-      <Header style={{   position: 'sticky',top: 0,
+   
+    <Header style={{   position: 'sticky',top: 0,
           zIndex: 1,
           width: '100%',
-		  backgroundColor:'inherit',
-          display: 'flex',
-          alignItems: 'center',
-		  justifyContent:'center',margin:'20px'}} >
+		      backgroundColor:'inherit',
+          display: 'flex',height:"fit-content",
+        
+		      justifyContent:'center',}} >
         <Typography.Title style={{ textAlign: "center" }}>
           Address Book App
           <Input.Search  style={{margin:'10px'}}          value={searchText}
@@ -32,10 +33,9 @@ function AppHeader() {
 
 		  </Input.Search>
         </Typography.Title>
-		{/* <p>
-			{searchText}
-		</p> */}
+		
       </Header>
+   
     </>
   );
   

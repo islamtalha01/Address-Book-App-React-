@@ -1,18 +1,12 @@
-import {
-  Card,
-  Button,
-  Row,
-  Col,
-  Avatar,theme
-} from "antd";
+import { Card, Button, Row, Col, Avatar, theme, Divider,Image } from "antd";
 const { useToken } = theme;
-import React, { useContext } from 'react';
-import { AppContext } from '../../AppContext';
+import React, { useContext } from "react";
+import { AppContext } from "../../AppContext";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
-import "../../style.css";
+import AppHeader from "../Header";
+import Sidebar from "../Sidebar";
 
-// import useInfiniteScroll_copy from "../../hooks/useInfiniteScroll _copy";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const { Meta } = Card;
 
@@ -22,15 +16,12 @@ function HomePage() {
   // console.log(dataArray.length, endOfUsers, loading);
   const { searchText } = useContext(AppContext);
   const [cardStates, setCardStates] = useState({});
-  
-  console.log(dataArray)
+
+  console.log(dataArray);
 
   // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
- 
 
-
-
-console.log(typeof searchText)
+  console.log(typeof searchText);
 
   const search = () => {
     if (!dataArray.length) {
@@ -45,23 +36,6 @@ console.log(typeof searchText)
     return filteredData;
   };
 
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
   const toggleMoreInfo = (index) => {
     setCardStates((prevState) => ({
       ...prevState,
@@ -95,6 +69,7 @@ console.log(typeof searchText)
                   <p>Postal Code: {item.postCode}</p>
                   <p>State: {item.state}</p>
                   <p>Phone: {item.phone}</p>
+                  <p>Nationality: {item.nat}</p>
                 </>
               )}
 
@@ -112,44 +87,50 @@ console.log(typeof searchText)
   };
 
   return (
-    <>
-      
-     
-      <div style={{ marginTop: "20px" }}>
-        <Row gutter={[10, 10]}>
-          {search().length > 0 &&
-            search().map((item, index) => (
-              <Col key={index} span={6}>
-                
-                  <Card
-                    hoverable
-                    // cover={<img style={{width:'150px',height:'150px'}} alt="example" src={item.thumbUrl} />}
-                    
-                  >
-                    {renderItem(item, index)}
-                  </Card>
-              
-              </Col>
-            ))}
-        </Row>
-      </div>
+  <>
+   <AppHeader />
 
-      {endOfUsers && (
-        <div>
-          {" "}
-          <p
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {" "}
-            End of users
-          </p>
-        </div>
-      )}
-    </>
+    <Row>
+  <Col span={3}>
+    <Sidebar />
+  </Col>
+  <Col span={21}>
+    <Row gutter={[15, 15]} style={{ margin: "0px" }}>
+      {search().length > 0 &&
+        search().map((item, index) => (
+          <Col key={index} xs={token.sizeMD} sm={token.sizeMS} md={token.sizeSM} lg={token.sizeXS} xl={token.sizeXXS} style={{ padding: "0px" }}>
+            <Card
+              hoverable
+              style={{minHeight:'350px'}}
+              cover={<Image style={{width:'100px',height:'100px',justifyContent:"center"}} alt="example" src={item.thumbUrl}></Image>}
+            >
+              {renderItem(item, index)}
+            </Card>
+          </Col>
+        ))}
+    </Row>
+  </Col>
+</Row >
+
+
+{/* {endOfUsers && (
+  <div>
+    {" "}
+    <p
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {" "}
+      End of users
+    </p>
+  </div>
+)} */}
+  
+     
+  </>
   );
 }
 export default HomePage;
