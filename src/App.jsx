@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AppProvider } from "./AppContext";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
+import ErrorBoundary from "./errorboundary";
 import SettingPage from "./Components/SettingsPage";
 function App() {
   const [dark, setDark] = useState(false);
@@ -46,7 +47,7 @@ function Content() {
   return (
     <div>
       <Routes>
-        <Route eaxct path="/" element={<HomePage />}></Route>
+        <Route eaxct path="/" element={ <ErrorBoundary fallback={<h1> "There is a Error in the HomePage Component"</h1>}><HomePage /></ErrorBoundary>}></Route>
         <Route eaxct path="/settings" element={<SettingPage />}></Route>
       </Routes>
     </div>
