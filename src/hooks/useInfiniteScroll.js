@@ -68,6 +68,7 @@ const [totalUsers,setTotalUser]=useState(50)
           }
           else
           {
+            setLoading(false)
             console.log("end of users")
           }
       
@@ -89,6 +90,7 @@ const [totalUsers,setTotalUser]=useState(50)
             {
                  console.log("hi")
                  setEndOfUsers(true)
+                 setLoading(false)
                  return prev;
             } 
             
