@@ -45,12 +45,12 @@ function App() {
 }
 function Content() {
   return (
-    <div>
+    
       <Routes>
         <Route eaxct path="/" element={ <ErrorBoundary fallback={<h1> "There is a Error in the HomePage Component"</h1>}><HomePage /></ErrorBoundary>}></Route>
         <Route eaxct path="/settings" element={<SettingPage />}></Route>
       </Routes>
-    </div>
+    
   );
 }
 export default App;

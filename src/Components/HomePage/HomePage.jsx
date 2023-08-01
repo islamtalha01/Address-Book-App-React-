@@ -115,7 +115,7 @@ function HomePage() {
             <Sidebar />
           </Col>
           <Col span={21}>
-            <Row gutter={[15, 15]}>
+            <Row gutter={[15, 15]} style={{marginLeft:"0px",marginLeft:"0px"}}>
               {search().length > 0 &&
                 search().map((item, index) => (
                   <Col
