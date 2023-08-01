@@ -1,12 +1,11 @@
-import { Card, Button, Row, Col, Avatar, theme, Divider } from "antd";
+import { Card, Button, Row, Col, Avatar, theme, Divider,Image } from "antd";
 const { useToken } = theme;
 import React, { useContext } from "react";
 import { AppContext } from "../../AppContext";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
-
 import AppHeader from "../Header";
 import Sidebar from "../Sidebar";
-// import useInfiniteScroll_copy from "../../hooks/useInfiniteScroll _copy";
+
 import { useState, useEffect } from "react";
 
 const { Meta } = Card;
@@ -92,17 +91,18 @@ function HomePage() {
    <AppHeader />
 
     <Row>
-  <Col span={4}>
+  <Col span={3}>
     <Sidebar />
   </Col>
-  <Col span={16}>
-    <Row gutter={[10, 10]} style={{ margin: "0px" }}>
+  <Col span={21}>
+    <Row gutter={[15, 15]} style={{ margin: "0px" }}>
       {search().length > 0 &&
         search().map((item, index) => (
-          <Col key={index} span={6} style={{ padding: "0px" }}>
+          <Col key={index} xs={token.sizeMD} sm={token.sizeMS} md={token.sizeSM} lg={token.sizeXS} xl={token.sizeXXS} style={{ padding: "0px" }}>
             <Card
               hoverable
-              // cover={<img style={{width:'150px',height:'150px'}} alt="example" src={item.thumbUrl} />}
+              style={{minHeight:'350px'}}
+              cover={<Image style={{width:'100px',height:'100px',justifyContent:"center"}} alt="example" src={item.thumbUrl}></Image>}
             >
               {renderItem(item, index)}
             </Card>

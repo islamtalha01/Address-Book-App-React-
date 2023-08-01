@@ -21,11 +21,11 @@ function App() {
           token: dark ? darkTheme : lightTheme,
         }}
       >
-        <Space direction="vertical" size={10}>
+        {/* <Space direction="vertical" size={20}> */}
           <Layout
             style={{
-              display: "flex",	height: "100vh",
-			  width:"100vw",
+              display: "flex",	
+			  width:"100vw",height:"auto"
             }}
           >
             <Row justify="end" style={{ padding: "10px" }}>
@@ -37,7 +37,7 @@ function App() {
             </Row>
             <Content />
           </Layout>
-        </Space>
+        {/* </Space> */}
       </ConfigProvider>
     </AppProvider>
   );
