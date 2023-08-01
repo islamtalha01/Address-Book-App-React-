@@ -12,9 +12,11 @@ const { Meta } = Card;
 
 function HomePage() {
   const { token } = useToken();
-  const { dataArray, endOfUsers } = useInfiniteScroll();
+  const { searchText,loading } = useContext(AppContext);
+  const { dataArray } = useInfiniteScroll();
+  const endOfUsers={}
   // console.log(dataArray.length, endOfUsers, loading);
-  const { searchText } = useContext(AppContext);
+  
   const [cardStates, setCardStates] = useState({});
 
   console.log(dataArray);
@@ -94,13 +96,14 @@ function HomePage() {
   <Col span={3}>
     <Sidebar />
   </Col>
-  <Col span={21}>
+  <Col span={21} >
     <Row gutter={[15, 15]} style={{ margin: "0px" }}>
       {search().length > 0 &&
         search().map((item, index) => (
           <Col key={index} xs={token.sizeMD} sm={token.sizeMS} md={token.sizeSM} lg={token.sizeXS} xl={token.sizeXXS} style={{ padding: "0px" }}>
             <Card
               hoverable
+              loading={loading}
               style={{minHeight:'350px'}}
               cover={<Image style={{width:'100px',height:'100px',justifyContent:"center"}} alt="example" src={item.thumbUrl}></Image>}
             >

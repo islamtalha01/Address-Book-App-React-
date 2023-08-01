@@ -4,11 +4,11 @@ import React, { useContext } from 'react';
 import { AppContext } from '../AppContext';
 function useInfiniteScroll(nationality)
 {
+const {selectedNationality,loading,setLoading} = useContext(AppContext);
 const [dataArray, setDataArray] = useState([]);
 const [totalUsers,setTotalUser]=useState(50)
-const [endOfUsers,setEndOfUsers]=useState(false)
-const [loading, setLoading]= useState(true)
-const {selectedNationality} = useContext(AppContext);
+
+
     const Loader = async (selectedNationality) => {
        const fetchData=[]
         try {
@@ -25,6 +25,7 @@ const {selectedNationality} = useContext(AppContext);
             const response = await axios.get(apiUrl);
             
             const results = response.data.results;
+            // console.log(response.data);
             
             results.forEach((element) => {
               const firstName = element.name.first;
@@ -54,7 +55,7 @@ const {selectedNationality} = useContext(AppContext);
                 nat:nat,
               };
                
-           
+            //    console.log(detail)
              
               
               fetchData.push(detail);
@@ -78,14 +79,14 @@ const {selectedNationality} = useContext(AppContext);
         const scrollHeight = e.target.documentElement.scrollHeight;
         const currentHeight = e.target.documentElement.scrollTop + window.innerHeight;
         if (currentHeight + 1 >= scrollHeight) {
-           
+          // setLoading(true)    
           
           setTotalUser((prev)=> {
 
             if(prev >=1000)
             {
                  console.log("hi")
-                 setEndOfUsers(true)
+                //  setEndOfUsers(true)
                  return prev;
             } 
             
@@ -109,8 +110,8 @@ const {selectedNationality} = useContext(AppContext);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
       }, []);
-       console.log(endOfUsers) //endOfUser state is not being aceesed there
-      return {dataArray,endOfUsers,loading};
+       console.log() //endOfUser state is not being aceesed there
+      return {dataArray};
         
 }
 

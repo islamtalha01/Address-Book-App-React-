@@ -28,7 +28,7 @@ function AppHeader() {
 		      justifyContent:'center',}} >
         <Typography.Title style={{ textAlign: "center" }}>
           Address Book App
-          <Input.Search  style={{margin:'10px'}}          value={searchText}
+          <Input.Search  style={{}}          value={searchText}
         onChange={handleSearchInput}>
 
 		  </Input.Search>
