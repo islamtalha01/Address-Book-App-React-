@@ -7,7 +7,7 @@ function useInfiniteScroll(nationality)
 const {selectedNationality,loading,setLoading} = useContext(AppContext);
 const [dataArray, setDataArray] = useState([]);
 const [totalUsers,setTotalUser]=useState(50)
-
+console.log(loading)
 
     const Loader = async (selectedNationality) => {
        const fetchData=[]
@@ -63,6 +63,7 @@ const [totalUsers,setTotalUser]=useState(50)
         
             
             setDataArray((prev)=>[...prev,...fetchData]); 
+            setLoading(false)
           }
           else
           {
@@ -79,7 +80,7 @@ const [totalUsers,setTotalUser]=useState(50)
         const scrollHeight = e.target.documentElement.scrollHeight;
         const currentHeight = e.target.documentElement.scrollTop + window.innerHeight;
         if (currentHeight + 1 >= scrollHeight) {
-          // setLoading(true)    
+          setLoading(true)    
           
           setTotalUser((prev)=> {
 
@@ -100,9 +101,10 @@ const [totalUsers,setTotalUser]=useState(50)
       };
       useEffect(()=>
       {
-        setLoading(true)
+        
         Loader(selectedNationality);
-        setLoading(false)
+       
+        
       },[totalUsers,selectedNationality])
       
       useEffect(() => {

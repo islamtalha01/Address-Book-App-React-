@@ -5,7 +5,7 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [searchText, setSearchText] = useState('');
   const [selectedNationality, setSelectedNationality] = useState("");
-  const [loading, setLoading]= useState(true)
+  const [loading, setLoading]= useState(false)
   return (
     <AppContext.Provider value={{ searchText, setSearchText,selectedNationality,setSelectedNationality,loading,setLoading }}>
       {children}

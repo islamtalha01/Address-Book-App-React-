@@ -1,4 +1,4 @@
-import { Card, Button, Row, Col, Avatar, theme, Divider,Image } from "antd";
+import { Card, Button, Row, Col, Avatar, theme, Divider,Image, Skeleton } from "antd";
 const { useToken } = theme;
 import React, { useContext } from "react";
 import { AppContext } from "../../AppContext";
@@ -19,7 +19,7 @@ function HomePage() {
   
   const [cardStates, setCardStates] = useState({});
 
-  console.log(dataArray);
+  // console.log(dataArray);
 
   // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
 
@@ -97,7 +97,7 @@ function HomePage() {
     <Sidebar />
   </Col>
   <Col span={21} >
-    <Row gutter={[15, 15]} style={{ margin: "0px" }}>
+    <Row gutter={[15, 15]} >
       {search().length > 0 &&
         search().map((item, index) => (
           <Col key={index} xs={token.sizeMD} sm={token.sizeMS} md={token.sizeSM} lg={token.sizeXS} xl={token.sizeXXS} style={{ padding: "0px" }}>
@@ -107,7 +107,10 @@ function HomePage() {
               style={{minHeight:'350px'}}
               cover={<Image style={{width:'100px',height:'100px',justifyContent:"center"}} alt="example" src={item.thumbUrl}></Image>}
             >
+              <Skeleton loading={loading}>
               {renderItem(item, index)}
+              </Skeleton>
+            
             </Card>
           </Col>
         ))}

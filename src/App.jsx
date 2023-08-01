@@ -25,7 +25,7 @@ function App() {
           <Layout
             style={{
               display: "flex",	
-			  width:"100vw",height:"auto"
+			  width:"100vw",height:"100%"
             }}
           >
             <Row justify="end" style={{ padding: "10px" }}>
