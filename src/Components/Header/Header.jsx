@@ -19,7 +19,9 @@ function AppHeader() {
   return (
     <>
    
-    <Header style={{   position: 'sticky',top: 0,
+    <Header style={{   
+          position: 'sticky',
+          top: 0,
           zIndex: 1,
           width: '100%',
 		      backgroundColor:'inherit',
@@ -27,7 +29,7 @@ function AppHeader() {
         
 		      justifyContent:'center',}} >
             
-            <Row>
+            
 
             <Typography.Title style={{ textAlign: "center" }}>
           Address Book App
@@ -36,7 +38,7 @@ function AppHeader() {
 
 		  </Input.Search>
         </Typography.Title>
-            </Row>
+            
        
 		
       </Header>

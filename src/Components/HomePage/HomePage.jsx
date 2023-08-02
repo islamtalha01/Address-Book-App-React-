@@ -9,7 +9,8 @@ import {
   Space,
   Layout,
   Spin,
-  message,
+  
+
 } from "antd";
 const { useToken } = theme;
 import React, { useContext } from "react";
@@ -20,26 +21,46 @@ import Sidebar from "../Sidebar";
 const { Footer, Content } = Layout;
 import { useState, useEffect } from "react";
 import "./style.css";
-import { } from 'antd';
+import {} from "antd";
+import UserModel from "./UserModal";
 
 const { Meta } = Card;
 
 function HomePage() {
   const { token } = useToken();
+ 
   const { searchText, loading, endOfUsers } = useContext(AppContext);
   const { dataArray } = useInfiniteScroll();
-  const [messageApi, contextHolder] = message.useMessage();
-  // console.log(dataArray.length, endOfUsers, loading);
-
-  const [cardStates, setCardStates] = useState({});
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modaldata,setModalData]=useState({})
   // console.log(dataArray);
 
   // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
+  const showModal = (data,index) => {
 
-  // console.log(typeof searchText);
-  console.log(endOfUsers);
+
+    setIsModalOpen(true);
+    
+    setModalData(data)
+     console.log(data)
+     console.log(index)
+
+
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  
+
+  
+  
+  
   const search = () => {
+    
     if (!dataArray.length) {
       return dataArray; // Return the original array when dataArray is empty
     }
@@ -51,18 +72,11 @@ function HomePage() {
 
     return filteredData;
   };
+ 
 
-  const toggleMoreInfo = (index) => {
-    setCardStates((prevState) => ({
-      ...prevState,
-      [index]: !prevState[index],
-    }));
-
-    console.log("hi i am midway of hompage");
-  };
-
-  const renderItem = (item, index) => {
-    const isMoreInfoVisible = cardStates[index];
+  const renderItem = (item) => {
+   
+    
     return (
       <>
         <Meta
@@ -77,24 +91,8 @@ function HomePage() {
               <p>Email: {item.email}</p>
 
               <p>Username : {item.userName} </p>
-
-              {isMoreInfoVisible && (
-                <>
-                  <p>Street: {item.city}</p>
-                  <p>City: {item.city}</p>
-                  <p>Postal Code: {item.postCode}</p>
-                  <p>State: {item.state}</p>
-                  <p>Phone: {item.phone}</p>
-                  <p>Nationality: {item.nat}</p>
-                </>
-              )}
-
-              <Button
-                onClick={() => toggleMoreInfo(index)}
-                style={{ display: "block" }}
-              >
-                {isMoreInfoVisible ? "Close" : "More Info"}
-              </Button>
+              
+              
             </>
           }
         />
@@ -103,21 +101,23 @@ function HomePage() {
   };
 
   return (
-    
-    
-       <>
-   
+    <>
       <Space direction="vertical" size={token.sizeXS}>
         <AppHeader />
-
+        <UserModel modaldata={modaldata} isModalOpen={isModalOpen}
+        handleOk={handleOk}
+        handleCancel={handleCancel} />
         <Row gutter={[10]}>
           <Col span={3}>
             <Sidebar />
           </Col>
           <Col span={21}>
-            <Row gutter={[15, 15]} style={{marginLeft:"0px",marginLeft:"0px"}}>
+            <Row
+              gutter={[15, 15]}
+              style={{ marginLeft: "0px", marginLeft: "0px" }}
+            >
               {search().length > 0 &&
-                search().map((item, index) => (
+                search().map((data, index) => (
                   <Col
                     key={index}
                     xs={token.sizeMD}
@@ -127,22 +127,14 @@ function HomePage() {
                     xl={token.sizeXXS}
                     style={{ padding: "0px" }}
                   >
-                    <Card
-                      hoverable
-                      style={{ minHeight: "350px" }}
-                      cover={
-                        <Image
-                          style={{
-                            width: "100px",
-                            height: "100px",
-                            justifyContent: "center",
-                          }}
-                          alt="example"
-                          src={item.thumbUrl}
-                        ></Image>
+                    <Card hoverable style={{ minHeight: "250px" } } actions={[<Button type="primary" onClick={()=>{showModal(data,index)}}> More Info</Button>]}>
+                      {
+
+                      renderItem(data,index)
+                     
+
                       }
-                    >
-                      {renderItem(item, index)}
+
                     </Card>
                   </Col>
                 ))}
@@ -168,7 +160,7 @@ function HomePage() {
         >
           Engineering Department Carbonteq
         </Footer>
-      
+
         {endOfUsers && (
           <div>
             {" "}
@@ -184,12 +176,8 @@ function HomePage() {
             </p>
           </div>
         )}
-      
       </Space>
     </>
-
-    
-   
   );
 }
 export default HomePage;
