@@ -20,7 +20,7 @@ const { Footer, Content } = Layout;
 import { useState, useEffect } from "react";
 import "./style.css";
 import {} from "antd";
-import UserModel from "./UserModal";
+import UserModal from "./UserModal";
 
 const { Meta } = Card;
 
@@ -67,8 +67,7 @@ function HomePage() {
         <Meta
           style={{
             display: "block",
-            // width: "max-content",
-            // borderRadius: token.borderRadiusXS,
+            
           }}
           title={item.first + " " + item.last}
           avatar={<Avatar src={item.thumbUrl} />}
@@ -88,7 +87,7 @@ function HomePage() {
     <>
     
         <AppHeader />
-        <UserModel
+        <UserModal
           modaldata={modaldata}
           isModalOpen={isModalOpen}
           handleOk={handleOk}
@@ -139,24 +138,11 @@ function HomePage() {
 
         <Row style={{ justifyContent: "center" }}>
           {loading && (
-            <Spin tip="Loading" size="large">
+            <Spin tip="Loading" size="small">
               <div className="content" />
             </Spin>
           )}
         </Row>
-
-        <Footer
-          style={{
-            textAlign: "center",
-            color: "#fff",
-            backgroundColor: "#000000",
-            width: "100%",
-            position: "sticky",
-          }}
-        >
-          Engineering Department Carbonteq
-        </Footer>
-
         {endOfUsers && (
           <div>
             {" "}
@@ -172,6 +158,19 @@ function HomePage() {
             </p>
           </div>
         )}
+        <Footer
+          style={{
+            textAlign: "center",
+            color: "#fff",
+            backgroundColor: "#000000",
+            width: "100%",
+            position: "sticky",
+          }}
+        >
+          Engineering Department Carbonteq
+        </Footer>
+
+        
     
     </>
   );

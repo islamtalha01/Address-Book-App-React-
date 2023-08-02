@@ -26,12 +26,12 @@ function AppHeader() {
           width: '100%',
 		      backgroundColor:'inherit',
           display: 'flex',height:"fit-content",
-        
+           
 		      justifyContent:'center',}} >
             
             
 
-            <Typography.Title style={{ textAlign: "center" }}>
+          <Typography.Title style={{ textAlign: "center" }}>
           Address Book App
           <Input.Search  style={{}}          value={searchText}
         onChange={handleSearchInput}>
