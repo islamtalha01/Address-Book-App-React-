@@ -9,8 +9,6 @@ import {
   Space,
   Layout,
   Spin,
-  
-
 } from "antd";
 const { useToken } = theme;
 import React, { useContext } from "react";
@@ -28,24 +26,20 @@ const { Meta } = Card;
 
 function HomePage() {
   const { token } = useToken();
- 
+
   const { searchText, loading, endOfUsers } = useContext(AppContext);
   const { dataArray } = useInfiniteScroll();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modaldata,setModalData]=useState({})
+  const [modaldata, setModalData] = useState({});
   // console.log(dataArray);
 
   // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
-  const showModal = (data,index) => {
-
-
+  const showModal = (data, index) => {
     setIsModalOpen(true);
-    
-    setModalData(data)
-     console.log(data)
-     console.log(index)
 
-
+    setModalData(data);
+    console.log(data);
+    console.log(index);
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -54,13 +48,7 @@ function HomePage() {
     setIsModalOpen(false);
   };
 
-  
-
-  
-  
-  
   const search = () => {
-    
     if (!dataArray.length) {
       return dataArray; // Return the original array when dataArray is empty
     }
@@ -72,17 +60,14 @@ function HomePage() {
 
     return filteredData;
   };
- 
 
   const renderItem = (item) => {
-   
-    
     return (
       <>
         <Meta
           style={{
             display: "block",
-            width: "max-content",
+            // width: "max-content",
             // borderRadius: token.borderRadiusXS,
           }}
           title={item.first + " " + item.last}
@@ -92,8 +77,6 @@ function HomePage() {
               <p>Email: {item.email}</p>
 
               <p>Username : {item.userName} </p>
-              
-              
             </>
           }
         />
@@ -103,19 +86,22 @@ function HomePage() {
 
   return (
     <>
-      <Space direction="vertical" size={token.sizeXS}>
+    
         <AppHeader />
-        <UserModel modaldata={modaldata} isModalOpen={isModalOpen}
-        handleOk={handleOk}
-        handleCancel={handleCancel} />
-        <Row gutter={[10]}>
+        <UserModel
+          modaldata={modaldata}
+          isModalOpen={isModalOpen}
+          handleOk={handleOk}
+          handleCancel={handleCancel}
+        />
+        <Row  style={{ marginRight: "0px", marginLeft: "0px" }}>
           <Col span={3}>
             <Sidebar />
           </Col>
           <Col span={21}>
             <Row
-              gutter={[15, 15]}
-              style={{ marginLeft: "0px", marginLeft: "0px" }}
+              gutter={[10, 10]}
+              style={{ marginRight: "0px", marginLeft: "0px" }}
             >
               {search().length > 0 &&
                 search().map((data, index) => (
@@ -128,14 +114,22 @@ function HomePage() {
                     xl={token.sizeXXS}
                     style={{ padding: "0px" }}
                   >
-                    <Card hoverable bodyStyle={{ minHeight: "250px" } } actions={[<Button type="primary" onClick={()=>{showModal(data,index)}}> More Info</Button>]}>
-                      {
-
-                      renderItem(data,index)
-                     
-
-                      }
-
+                    <Card
+                      hoverable
+                      bodyStyle={{ minHeight: "250px" }}
+                      actions={[
+                        <Button
+                          type="primary"
+                          onClick={() => {
+                            showModal(data, index);
+                          }}
+                        >
+                          {" "}
+                          More Info
+                        </Button>,
+                      ]}
+                    >
+                      {renderItem(data, index)}
                     </Card>
                   </Col>
                 ))}
@@ -155,8 +149,9 @@ function HomePage() {
           style={{
             textAlign: "center",
             color: "#fff",
-            backgroundColor: "#D5D7E5",
+            backgroundColor: "#000000",
             width: "100%",
+            position: "sticky",
           }}
         >
           Engineering Department Carbonteq
@@ -177,7 +172,7 @@ function HomePage() {
             </p>
           </div>
         )}
-      </Space>
+    
     </>
   );
 }

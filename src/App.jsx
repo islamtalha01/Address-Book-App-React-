@@ -26,7 +26,7 @@ function App() {
           <Layout
             style={{
               display: "flex",	
-			  width:"100vw",height:"100%"
+			        minHeight:"100vh" //min-height will 
             }}
           >
             <Row justify="end" style={{ padding: "10px" }}>
@@ -49,11 +49,17 @@ function App() {
 function Content() {
   return (
       <div>
-         <Routes>
+
+      
+       <Routes>
         <Route exact path="/" element={ <ErrorBoundary fallback={<h1> "There is a Error in the HomePage Component"</h1>}><HomePage /></ErrorBoundary>}></Route>
         <Route exact path="/settings" element={<SettingPage />}></Route>
       </Routes>
       </div>
+      
+      
+         
+      
      
     
     
