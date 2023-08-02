@@ -22,8 +22,7 @@ const [totalUsers,setTotalUser]=useState(50)
                 apiUrl += `&nat=${selectedNationality}`;
                 
             }
-            console.log("hi")
-            console.log(selectedNationality);
+           
             const response = await axios.get(apiUrl);
             
             const results = response.data.results;
