@@ -38,7 +38,8 @@ const [totalUsers,setTotalUser]=useState(50)
               const city=element.location.city
               const state=element.location.state
               const postCode=element.location.postcode
-              const phone=element.cell
+              const cell=element.cell
+              const phone=element.phone
               const nat=element.nat
             
                
@@ -52,6 +53,7 @@ const [totalUsers,setTotalUser]=useState(50)
                  city:city,
                  state :state,
                 postCode:postCode,
+                cell:cell,
                 phone:phone,
                 nat:nat,
               };
