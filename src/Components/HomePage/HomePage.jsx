@@ -82,7 +82,8 @@ function HomePage() {
         <Meta
           style={{
             display: "block",
-            borderRadius: token.borderRadiusXS,
+            width: "max-content",
+            // borderRadius: token.borderRadiusXS,
           }}
           title={item.first + " " + item.last}
           avatar={<Avatar src={item.thumbUrl} />}
@@ -127,7 +128,7 @@ function HomePage() {
                     xl={token.sizeXXS}
                     style={{ padding: "0px" }}
                   >
-                    <Card hoverable style={{ minHeight: "250px" } } actions={[<Button type="primary" onClick={()=>{showModal(data,index)}}> More Info</Button>]}>
+                    <Card hoverable bodyStyle={{ minHeight: "250px" } } actions={[<Button type="primary" onClick={()=>{showModal(data,index)}}> More Info</Button>]}>
                       {
 
                       renderItem(data,index)
