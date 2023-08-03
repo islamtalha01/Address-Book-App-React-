@@ -27,8 +27,8 @@ const { Meta } = Card;
 function HomePage() {
   const { token } = useToken();
 
-  const { searchText, loading, endOfUsers } = useContext(AppContext);
-  const { dataArray } = useInfiniteScroll();
+  const { searchText, loading } = useContext(AppContext);
+  const { dataArray,endOfUsers } = useInfiniteScroll();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modaldata, setModalData] = useState({});
   // console.log(dataArray);
