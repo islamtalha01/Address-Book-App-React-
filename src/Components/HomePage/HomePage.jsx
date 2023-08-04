@@ -30,16 +30,16 @@ function HomePage() {
   const { searchText, loading } = useContext(AppContext);
   const { dataArray,endOfUsers } = useInfiniteScroll();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modaldata, setModalData] = useState({});
-  // console.log(dataArray);
+  const [modalData, setModalData] = useState({});
+  console.log(dataArray.length);
 
   // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
   const showModal = (data, index) => {
     setIsModalOpen(true);
 
     setModalData(data);
-    console.log(data);
-    console.log(index);
+    // console.log(data);
+    // console.log(index);
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -54,7 +54,7 @@ function HomePage() {
     }
 
     const filteredData = dataArray.filter((item) => {
-      const fullName = `${item.first} ${item.last}`;
+      const fullName = `${item.name.first} ${item.name.last}`;
       return fullName.toLowerCase().includes(searchText.toLowerCase());
     });
 
@@ -69,13 +69,13 @@ function HomePage() {
             display: "block",
             
           }}
-          title={item.first + " " + item.last}
-          avatar={<Avatar src={item.thumbUrl} />}
+          title={item.name.first + " " + item.name.last}
+          avatar={<Avatar src={item.picture.thumbnail} />}
           description={
             <>
               <p>Email: {item.email}</p>
 
-              <p>Username : {item.userName} </p>
+              <p>Username : {item.login.username} </p>
             </>
           }
         />
@@ -88,7 +88,7 @@ function HomePage() {
     
         <AppHeader />
         <UserModal
-          modaldata={modaldata}
+          modalData={modalData}
           isModalOpen={isModalOpen}
           handleOk={handleOk}
           handleCancel={handleCancel}
@@ -158,6 +158,7 @@ function HomePage() {
             </p>
           </div>
         )}
+        
         <Footer
           style={{
             textAlign: "center",

@@ -1,13 +1,13 @@
-import { Input, Typography, Layout, Space,Row } from "antd";
+import { Input, Typography, Layout, Space,Row,theme } from "antd";
 const { Header} = Layout;
 import React, { useContext } from 'react';
 import { AppContext } from '../../AppContext';
 
-
-  
 function AppHeader() {
 	const { searchText, setSearchText } = useContext(AppContext);
-
+  const { useToken } = theme;
+   const { token } = useToken();
+  
 	
 	const handleSearchInput=(e)=>
 	{
@@ -24,7 +24,7 @@ function AppHeader() {
           top: 0,
           zIndex: 1,
           width: '100%',
-		      backgroundColor:'inherit',
+		      backgroundColor:token.colorBgLayout,
           display: 'flex',height:"fit-content",
            
 		      justifyContent:'center',}} >
