@@ -29,6 +29,7 @@ const [totalUsers,setTotalUser]=useState(50)
       
             console.log(results)
             
+          
         results.forEach((element) => {
           const {
             name:{first,
@@ -97,8 +98,7 @@ const [totalUsers,setTotalUser]=useState(50)
             
           }); 
              
-            // if(prev>=1000){setEndOfUsers(true);return }
-      
+            
         }
       };
       useEffect(()=>

@@ -13,7 +13,7 @@ import {
 const { useToken } = theme;
 import React, { useContext } from "react";
 import { AppContext } from "../../AppContext";
-import useInfiniteScroll from "../../hooks/useInfiniteScroll";
+// import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import AppHeader from "../Header";
 import Sidebar from "../Sidebar";
 const { Footer, Content } = Layout;
@@ -21,17 +21,18 @@ import { useState, useEffect } from "react";
 import "./style.css";
 import {} from "antd";
 import UserModal from "./UserModal";
-
+import useDataFetch from "../../hooks/useDataFetch";
 const { Meta } = Card;
 
 function HomePage() {
   const { token } = useToken();
 
-  const { searchText, loading } = useContext(AppContext);
-  const { dataArray,endOfUsers } = useInfiniteScroll();
+  const { searchText, loading,endOfUsers } = useContext(AppContext);
+  // const { dataArray,endOfUsers } = useInfiniteScroll();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
-  console.log(dataArray.length);
+  const {dataArray}=useDataFetch()
+  console.log(dataArray,"Data from usefetch");
 
   // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
   const showModal = (data, index) => {
@@ -85,8 +86,9 @@ function HomePage() {
 
   return (
     <>
-    
+     
         <AppHeader />
+      
         <UserModal
           modalData={modalData}
           isModalOpen={isModalOpen}
@@ -135,7 +137,6 @@ function HomePage() {
             </Row>
           </Col>
         </Row>
-
         <Row style={{ justifyContent: "center" }}>
           {loading && (
             <Spin tip="Loading" size="small">
@@ -143,6 +144,7 @@ function HomePage() {
             </Spin>
           )}
         </Row>
+        
         {endOfUsers && (
           <div>
             {" "}

@@ -18,7 +18,7 @@
         onCancel={handleCancel}
       >
         {modalData.location && <div>
-        <p>Street: {modalData.location.street.name + modalData.location.street.number}</p>
+        <p>Street: {`${modalData.location.street.name} ${modalData.location.street.number}` }</p>
         <p>Postal Code: {modalData.location.postcode}</p>
         <p>State: {modalData.location.state}</p> 
         </div> }

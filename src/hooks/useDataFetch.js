@@ -1,120 +1,96 @@
-import { useEffect, useState ,useRef } from "react";
-import axios from "axios";
+import { useEffect, useState, useRef,useContext } from "react";
+import userDataService from "../services/userdata";
 // console.log("hi i am entring in datafecth scroll")
-function useFetchData()
-{
-const [dataArray, setDataArray] = useState([]);
-const [loading, setLoading]= useState(true)
-const  [preFetch,setPreFetch]=useState([])
-const isFirstRender=useRef(true)
-const [totalUsers,setTotalUser]=useState(50)
-    const fetch = async () => {
-        
-       const fetchData=[]
-        try {
-       
-          if(totalUsers<=1000)
-          {
-            
-            const response = await axios.get("https://randomuser.me/api/?results=50");
-            
-            const results = response.data.results;
-           
-            
-            results.forEach((element) => {
-              const firstName = element.name.first;
-              const lastName = element.name.last;
-              const email = element.email;
-              const userName = element.login.username;
-              const thumbnailUrl = element.picture.thumbnail;
-              const street=element.location.street.name+element.location.street.number
-              const city=element.location.city
-              const state=element.location.state
-              const postCode=element.location.postcode
-              const phone=element.cell
-              
-             
-               
-              const detail = {
-                first: firstName,
-                last: lastName,
-                email: email,
-                userName: userName,
-                thumbUrl: thumbnailUrl,
-                 street:street,
-                 city:city,
-                 state :state,
-                postCode:postCode,
-                phone:phone,
-              };
-               
-          
-             
-             
-              fetchData.push(detail);
+import { AppContext } from '../AppContext';
 
+function useDataFetch() {
+  const {
+    
+    loading,
+    setLoading,
+    setEndOfUsers,
+    endOfUsers,selectedNationality
+  } = useContext(AppContext);
+  const [dataArray, setDataArray] = useState([]);
+  const [totalUsers, setTotalUser] = useState(0);
+  const isfirstRender=useRef(true)
+  const [data,setData]=useState([]);
+  const fetchData = [];
+  let limit= 50;
+  let result =[];
+  const setUsersData = async () => {
+
+    try {
+      setLoading(true)
+      if (totalUsers <= 1000) {
+
+
+       if( isfirstRender.current) {
+         limit= 100;
+         isfirstRender.current=false
+       }
+        console.log("limit of api is ",limit)
+        const data = await userDataService.get(selectedNationality,limit)
+        
+        
+          data.forEach((element) => {
+            const {
+              name: { first, last },
+              email,
+              login: { username },
+              picture: { thumbnail },
+              location: {
+                city,
+                street: { name, number },
+                state,
+                postcode,
+              },
+              cell,
+              phone,
+              nat,
+            } = element;
+  
+            fetchData.push({
+              name: { first, last },
+              email,
+              login: { username },
+              picture: { thumbnail },
+              location: { city, street: { name, number }, state, postcode },
+              cell,
+              phone,
+              nat,
             });
-        
-            if(isFirstRender)
-            {
-                console.log(fetchData)
-                setDataArray([fetchData]);
-            }
-            
-            else{
-                setPreFetch([fetchData])
-            }
-             
+          })
+
+
+        setTotalUser((prev) => {
+          if (prev >= 1000) {
+            setEndOfUsers(true);
+            console.log("end of users");
+            return prev;
           }
-          else
-          {
-            console.log("end of users")
-          }
-      
-        } catch (error) {
-          console.log("error is",error);
-        }
-        
-        
+          return prev + 50;
+        });
 
-      };
-      
-      
-      useEffect(()=>
-      {
-
+        setDataArray((prev)=>[...prev,...fetchData])
        
-            if (isFirstRender.current) {
-                // Code to be executed only on the first render
-                console.log('First render');
-
-
-                
-                fetch()
-               
-
-                isFirstRender.current = false;
-              } 
-              
-            },[]) 
-
-
-     useEffect(()=>{
-            
-
-        fetch()
-       
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
       
-     },[totalUsers])    
-      
-     return {dataArray,loading,preFetch,isFirstRender,totalUsers}   
+    } catch (error) {
+      console.log("error is", error);
+    }
+  };
+
+  useEffect(() => {
+    
+    setUsersData();
+   
+  }, [selectedNationality]);
+
+  return { dataArray, totalUsers };
 }
 
-
-
-export default useFetchData;
-
-
-  
-
-
+export default useDataFetch;
