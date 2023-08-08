@@ -1,120 +1,70 @@
-import { useEffect, useState ,useRef } from "react";
-import axios from "axios";
-// console.log("hi i am entring in datafecth scroll")
-function useFetchData()
-{
-const [dataArray, setDataArray] = useState([]);
-const [loading, setLoading]= useState(true)
-const  [preFetch,setPreFetch]=useState([])
-const isFirstRender=useRef(true)
-const [totalUsers,setTotalUser]=useState(50)
-    const fetch = async () => {
-        
-       const fetchData=[]
-        try {
-       
-          if(totalUsers<=1000)
-          {
-            
-            const response = await axios.get("https://randomuser.me/api/?results=50");
-            
-            const results = response.data.results;
-           
-            
-            results.forEach((element) => {
-              const firstName = element.name.first;
-              const lastName = element.name.last;
-              const email = element.email;
-              const userName = element.login.username;
-              const thumbnailUrl = element.picture.thumbnail;
-              const street=element.location.street.name+element.location.street.number
-              const city=element.location.city
-              const state=element.location.state
-              const postCode=element.location.postcode
-              const phone=element.cell
-              
-             
-               
-              const detail = {
-                first: firstName,
-                last: lastName,
-                email: email,
-                userName: userName,
-                thumbUrl: thumbnailUrl,
-                 street:street,
-                 city:city,
-                 state :state,
-                postCode:postCode,
-                phone:phone,
-              };
-               
-          
-             
-             
-              fetchData.push(detail);
+import { useEffect, useState, useRef,useContext } from "react";
+import userDataService from "../services/userdata";
+import { AppContext } from '../AppContext';
+function useDataFetch(limit=50) {
+  const {
+    selectedNationality,setTotalUser,Intersecting
+  } = useContext(AppContext);
+  const [usersData, setUsersData] = useState([]);
+  const [endOfUsers,setEndOfUsers]=useState(false)
+  const [totalUsers,setTotalUsers]=useState(0)
+  const isfirstRender=useRef(true)
 
+  const fetchData = [];
+ 
+  
+  const getUsersData = async () => {
+
+    try {
+      
+      // setLoading(true)
+
+       if( isfirstRender.current) {
+         limit= limit*2;
+         isfirstRender.current=false
+       }
+        
+        if(totalUsers<=1000){
+        const data = await userDataService.get(selectedNationality,limit)
+        
+        
+          data.forEach((element) => {
+            
+  
+            fetchData.push({
+              element
             });
+          })
+
+
         
-            if(isFirstRender)
-            {
-                console.log(fetchData)
-                setDataArray([fetchData]);
-            }
-            
-            else{
-                setPreFetch([fetchData])
-            }
-             
-          }
-          else
-          {
-            console.log("end of users")
-          }
+
+        setUsersData((prev)=>[...prev,...fetchData])
+        setTotalUsers((prev)=>prev+50)
+        
       
-        } catch (error) {
-          console.log("error is",error);
         }
-        
-        
+        else
+        {
 
-      };
-      
-      
-      useEffect(()=>
-      {
-
-       
-            if (isFirstRender.current) {
-                // Code to be executed only on the first render
-                console.log('First render');
+         
+          setEndOfUsers((prev)=>!prev)
 
 
-                
-                fetch()
-               
+        }
+    } catch (error) {
+      console.log("error is", error);
+    }
+  };
 
-                isFirstRender.current = false;
-              } 
-              
-            },[]) 
+  useEffect(() => {
+    
+    getUsersData();
+    console.log(totalUsers)
+   
+  }, [Intersecting]);
 
-
-     useEffect(()=>{
-            
-
-        fetch()
-       
-      
-     },[totalUsers])    
-      
-     return {dataArray,loading,preFetch,isFirstRender,totalUsers}   
+  return {usersData,endOfUsers};
 }
 
-
-
-export default useFetchData;
-
-
-  
-
-
+export default useDataFetch;

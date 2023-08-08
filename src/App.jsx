@@ -8,8 +8,11 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
 import ErrorBoundary from "./errorboundary";
 import SettingPage from "./Components/SettingsPage";
+
+
 function App() {
   const [dark, setDark] = useState(false);
+  
   const handleChecked = (checked) => {
     if (checked) setDark(true);
     else setDark(false);
@@ -47,15 +50,17 @@ function App() {
   );
 }
 function Content() {
+  const { useToken } = theme;
+  const {token}=useToken()
   return (
-      <div>
+      
 
       
        <Routes>
-        <Route exact path="/" element={ <ErrorBoundary fallback={<h1> "There is a Error in the HomePage Component"</h1>}><HomePage /></ErrorBoundary>}></Route>
+        <Route exact path="/" element={ <ErrorBoundary fallback={<h1 style={{color:token.colorText}}> "There is a Error in the HomePage Component"</h1>}><HomePage /></ErrorBoundary>}></Route>
         <Route exact path="/settings" element={<SettingPage />}></Route>
       </Routes>
-      </div>
+      
       
       
          

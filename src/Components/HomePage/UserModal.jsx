@@ -1,24 +1,24 @@
  import {Modal} from "antd"
- function UserModal ({modaldata,isModalOpen,handleCancel,handleOk})
+ function UserModal ({modalData,isModalOpen,handleCancel,handleOk})
  {
-    console.log(modaldata)
     return(
 
-
+       
         <Modal
         title="Additional Info"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-       
-        <p>Street: {modaldata.street}</p>
-        <p>City: {modaldata.city}</p>
-        <p>Postal Code: {modaldata.postCode}</p>
-        <p>State: {modaldata.state}</p>
-        <p>Phone: {modaldata.phone}</p>
-        <p>Cell: {modaldata.cell}</p>
-        <p>Nationality: {modaldata.nat}</p>
+        {modalData.element && <div>
+        <p>Street: {`${modalData.element.location.street.name} ${modalData.element.location.street.number}` }</p>
+        <p>Postal Code: {modalData.element.location.postcode}</p>
+        <p>State: {modalData.element.location.state}</p> 
+        
+        <p>Phone: {modalData.element.phone}</p>
+        <p>Cell: {modalData.element.cell}</p>
+        <p>Nationality: {modalData.element.nat}</p>
+        </div>}
       </Modal>
     )
  }
