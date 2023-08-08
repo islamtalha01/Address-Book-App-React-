@@ -3,10 +3,11 @@ import userDataService from "../services/userdata";
 import { AppContext } from '../AppContext';
 function useDataFetch(limit=50) {
   const {
-    selectedNationality,totalUsers,setTotalUser,Intersecting
+    selectedNationality,setTotalUser,Intersecting
   } = useContext(AppContext);
   const [usersData, setUsersData] = useState([]);
-  
+  const [endOfUsers,setEndOfUsers]=useState(false)
+  const [totalUsers,setTotalUsers]=useState(0)
   const isfirstRender=useRef(true)
 
   const fetchData = [];
@@ -22,7 +23,8 @@ function useDataFetch(limit=50) {
          limit= limit*2;
          isfirstRender.current=false
        }
-        console.log("limit of api is ",limit)
+        
+        if(totalUsers<=1000){
         const data = await userDataService.get(selectedNationality,limit)
         
         
@@ -38,11 +40,18 @@ function useDataFetch(limit=50) {
         
 
         setUsersData((prev)=>[...prev,...fetchData])
-        // console.log(fetchData)
-       
-        // setLoading(false);
+        setTotalUsers((prev)=>prev+50)
+        
       
-      
+        }
+        else
+        {
+
+         
+          setEndOfUsers((prev)=>!prev)
+
+
+        }
     } catch (error) {
       console.log("error is", error);
     }
@@ -51,10 +60,11 @@ function useDataFetch(limit=50) {
   useEffect(() => {
     
     getUsersData();
+    console.log(totalUsers)
    
   }, [Intersecting]);
 
-  return {usersData};
+  return {usersData,endOfUsers};
 }
 
 export default useDataFetch;

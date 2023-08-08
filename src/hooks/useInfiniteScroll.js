@@ -33,7 +33,7 @@ useEffect(() => {
   
  
   
-}, [elementRef]);
+}, [elementRef.current]);
  
 return Intersecting
  

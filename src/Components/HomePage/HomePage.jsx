@@ -30,11 +30,11 @@ function HomePage() {
 
   const {
     searchText,
-    loading,elementRef
+    loading
   } = useContext(AppContext);
-  
+  const elementRef = useRef(null);
 
- useInfiniteScroll(elementRef)
+  const onIntersection=useInfiniteScroll(elementRef)
 
   const {usersData}=useDataFetch(50)
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -191,8 +191,11 @@ function HomePage() {
       )}
 
       
-
-      <Footer
+        
+      <div ref={elementRef} style={{ display:"flex",textAlign: "center", height: "10",marginTop: "auto " }}>
+          Loading...
+      </div>
+     { endOfUsers && <Footer
         style={{
           textAlign: "center",
           color: "#fff",
@@ -201,14 +204,11 @@ function HomePage() {
           marginTop: "auto ",
         }}
       >
-        Engineering Department Carbonteq
-      </Footer>
+        End of Users
+      </Footer>}
 
       </Row>
 
-      <div ref={elementRef} style={{ textAlign: "center", height: "10",marginTop:'60px' }}>
-          Loading...
-      </div>
     </>
   );
 }
