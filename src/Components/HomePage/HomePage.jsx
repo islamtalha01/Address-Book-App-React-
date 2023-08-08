@@ -11,9 +11,9 @@ import {
   Spin,
 } from "antd";
 const { useToken } = theme;
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { AppContext } from "../../AppContext";
-// import useInfiniteScroll from "../../hooks/useInfiniteScroll";
+
 import AppHeader from "../Header";
 import Sidebar from "../Sidebar";
 const { Footer, Content } = Layout;
@@ -22,25 +22,29 @@ import "./style.css";
 import {} from "antd";
 import UserModal from "./UserModal";
 import useDataFetch from "../../hooks/useDataFetch";
+import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 const { Meta } = Card;
-
+let renderCount = 0;
 function HomePage() {
   const { token } = useToken();
 
-  const { searchText, loading,endOfUsers } = useContext(AppContext);
-  // const { dataArray,endOfUsers } = useInfiniteScroll();
+  const {
+    searchText,
+    loading
+  } = useContext(AppContext);
+  const elementRef = useRef(null);
+  const onIntersection=useInfiniteScroll(elementRef)
+
+  const {usersData}=useDataFetch(50)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
-  const {dataArray}=useDataFetch()
-  console.log(dataArray,"Data from usefetch");
+  const {isFirstRender,setFirstRender}=useState(true)
+  
 
-  // const{updtDataArray,endOfUsers,showAble,loading}=useInfiniteScroll_copy()
   const showModal = (data, index) => {
     setIsModalOpen(true);
 
     setModalData(data);
-    // console.log(data);
-    // console.log(index);
   };
   const handleOk = () => {
     setIsModalOpen(false);
@@ -49,132 +53,162 @@ function HomePage() {
     setIsModalOpen(false);
   };
 
-  const search = () => {
-    if (!dataArray.length) {
-      return dataArray; // Return the original array when dataArray is empty
-    }
+ const endOfUsers=null;
 
-    const filteredData = dataArray.filter((item) => {
-      const fullName = `${item.name.first} ${item.name.last}`;
+
+
+  function filterData() {
+    
+    if (isFirstRender) {
+          setFirstRender(false)
+          return usersData; // Return the original array when dataArray is empty
+        }
+    const filteredData = usersData.slice(0, -50).filter((item) => {
+      const fullName = `${item.element.name.first} ${item.element.name.last}`;
       return fullName.toLowerCase().includes(searchText.toLowerCase());
     });
 
     return filteredData;
-  };
+  }
+   
+
+  
+
+  renderCount++;
+
+console.log("scrolled",onIntersection,renderCount)
+
+
+
+
+
+
+
+
 
   const renderItem = (item) => {
+    
     return (
       <>
-        <Meta
-          style={{
-            display: "block",
-            
-          }}
-          title={item.name.first + " " + item.name.last}
-          avatar={<Avatar src={item.picture.thumbnail} />}
-          description={
-            <>
-              <p>Email: {item.email}</p>
+      { 
+         < Meta
+         style={{
+           display: "block",
+         }}
+         
+         title={item.element.name.first + " " + item.element.name.last}
+         avatar={<Avatar src={item.element.picture.thumbnail} />}
+         description={
+           <>
+             <p>Email: {item.element.email}</p>
 
-              <p>Username : {item.login.username} </p>
-            </>
-          }
-        />
+             <p>Username : {item.element.login.username} </p>
+           </>
+         }
+       />
+      
+      }
+       
       </>
     );
   };
 
   return (
     <>
-     
-        <AppHeader />
+      <Row style={{ flexDirection:'column',minHeight: "100vh" }}>
+      <AppHeader />
       
-        <UserModal
-          modalData={modalData}
-          isModalOpen={isModalOpen}
-          handleOk={handleOk}
-          handleCancel={handleCancel}
-        />
-        <Row  style={{ marginRight: "0px", marginLeft: "0px" }}>
-          <Col span={3}>
-            <Sidebar />
-          </Col>
-          <Col span={21}>
-            <Row
-              gutter={[10, 10]}
-              style={{ marginRight: "0px", marginLeft: "0px" }}
-            >
-              {search().length > 0 &&
-                search().map((data, index) => (
-                  <Col
-                    key={index}
-                    xs={token.sizeMD}
-                    sm={token.sizeMS}
-                    md={token.sizeSM}
-                    lg={token.sizeXS}
-                    xl={token.sizeXXS}
-                    style={{ padding: "0px" }}
+      <UserModal
+        modalData={modalData}
+        isModalOpen={isModalOpen}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+      />
+      <Row >
+        <Col span={3}>
+          <Sidebar />
+        </Col>
+        <Col span={21}>
+          <Row
+            gutter={12}
+            style={{ marginRight: "0px", marginLeft: "0px" }}
+          >
+            {usersData && filterData().length > 0 &&
+              filterData().map((data, index) => (
+                <Col
+                  key={index}
+                  xs={token.sizeMD}
+                  sm={token.sizeMS}
+                  md={token.sizeSM}
+                  lg={token.sizeXS}
+                  xl={token.sizeXXS}
+                  style={{ padding: "0px" }}
+                >
+                  <Card
+                    hoverable
+                    bodyStyle={{ minHeight: "250px" }}
+                    actions={[
+                      <Button
+                        type="primary"
+                        onClick={() => {
+                          showModal(data, index);
+                        }}
+                      >
+                        {" "}
+                        More Info
+                      </Button>,
+                    ]}
                   >
-                    <Card
-                      hoverable
-                      bodyStyle={{ minHeight: "250px" }}
-                      actions={[
-                        <Button
-                          type="primary"
-                          onClick={() => {
-                            showModal(data, index);
-                          }}
-                        >
-                          {" "}
-                          More Info
-                        </Button>,
-                      ]}
-                    >
-                      {renderItem(data, index)}
-                    </Card>
-                  </Col>
-                ))}
-            </Row>
-          </Col>
-        </Row>
-        <Row style={{ justifyContent: "center" }}>
-          {loading && (
-            <Spin tip="Loading" size="small">
-              <div className="content" />
-            </Spin>
-          )}
-        </Row>
-        
-        {endOfUsers && (
-          <div>
-            {" "}
-            <p
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {" "}
-              End of users
-            </p>
-          </div>
+                    {renderItem(data, index)}
+                  </Card>
+                </Col>
+              ))}
+          </Row>
+        </Col>
+      </Row>
+      <Row style={{ justifyContent: "center" }}>
+        {loading && (
+          <Spin tip="Loading" size="small">
+            <div className="content" />
+          </Spin>
         )}
-        
-        <Footer
-          style={{
-            textAlign: "center",
-            color: "#fff",
-            backgroundColor: "#000000",
-            width: "100%",
-            position: "sticky",
-          }}
-        >
-          Engineering Department Carbonteq
-        </Footer>
+      </Row>
 
-        
-    
+      {endOfUsers && (
+        <div>
+          {" "}
+          <p
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {" "}
+            End of users
+          </p>
+        </div>
+      )}
+
+      
+
+      <Footer
+        style={{
+          textAlign: "center",
+          color: "#fff",
+          backgroundColor: "#000000",
+          width: "100%",
+          marginTop: "auto ",
+        }}
+      >
+        Engineering Department Carbonteq
+      </Footer>
+
+      </Row>
+
+      <div ref={elementRef} style={{ textAlign: "center", height: "auto",marginTop:'20px' }}>
+          Loading...
+      </div>
     </>
   );
 }

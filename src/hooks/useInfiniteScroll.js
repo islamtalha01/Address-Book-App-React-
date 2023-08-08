@@ -1,121 +1,66 @@
 
-import { useEffect, useState } from "react";
-import axios from "axios";
-import React, { useContext } from 'react';
-import { AppContext } from '../AppContext';
-function useInfiniteScroll(nationality)
-{
-const {selectedNationality,loading,setLoading,setEndOfUsers,endOfUsers} = useContext(AppContext);
-const [dataArray, setDataArray] = useState([]);
-const [totalUsers,setTotalUser]=useState(50)
-    const Loader = async (selectedNationality) => {
-       const fetchData=[]
-        try {
-          
-          if(totalUsers<=1000)
-          {
-            
-            let apiUrl="https://randomuser.me/api/?results=50";
-            if(selectedNationality)
-            {
-              
-                apiUrl += `&nat=${selectedNationality}`;
-                
-            }
-           
-            const response = await axios.get(apiUrl);
-            
-            const results = response.data.results;
-      
-            console.log(results)
-            
-          
-        results.forEach((element) => {
-          const {
-            name:{first,
-            last},
-            email,
-            login:{username},
-            picture:{thumbnail},
-            location:{city,street:{name,number},state,postcode},
-            cell,
-            phone,
-            nat,
-          } = element;
-         
-        
+import { useEffect, useRef, useContext, useState } from "react";
+import { AppContext } from "../AppContext";
 
-          fetchData.push(
-            {
-              name:{first,
-              last},
-              email,
-              login:{username},
-              picture:{thumbnail},
-              location:{city,street:{name,number},state,postcode},
-              cell,
-              phone,
-              nat,
-            }
-          );
-         
-            });
-        
-            
-            setDataArray((prev)=>[...prev,...fetchData]); 
-            console.log(fetchData)
-            setLoading(false)
-          }
-          else
-          {
-            setLoading(false)
-            console.log("end of users")
-          }
 
-        } catch (error) {
-          console.log(error);
-        }
-         
-      };
-      
-      const handleScroll = (e) => {
-        const scrollHeight = e.target.documentElement.scrollHeight;
-        const currentHeight = e.target.documentElement.scrollTop + window.innerHeight;
-        if (currentHeight + 1 >= scrollHeight) {
-          setLoading(true)    
-          
-          setTotalUser((prev)=> {
-              console.log()
-            if(prev >=1000)
-            {
-                 console.log("hi")
-                 setEndOfUsers(true)
-                 setLoading(false)
-                 return prev;
-            } 
-
-            return prev+50
-            
-          }); 
-             
-            
-        }
-      };
-      useEffect(()=>
-      {
-        
-        Loader(selectedNationality);
+function useInfiniteScroll(elementRef) {
+  const {setTotalUser}=useContext(AppContext)
+const [isIntersecting, setIsIntersecting] = useState(false);
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+       setIsIntersecting(true)
        
-        
-      },[totalUsers,selectedNationality])
-      
-      useEffect(() => {
-        
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-      }, []);
-       
-      return {dataArray};
-        
+      }
+    },
+    { overflow: "hidden",threshold: 1 }
+  );
+
+  if (elementRef.current) {
+    observer.observe(elementRef.current);
+  }
+
+  return () => {
+    if (elementRef.current) {
+      observer.unobserve(elementRef.current);
+    }
+  };
+
+  
+}, [elementRef]);
+ 
+return isIntersecting
+ 
 }
+
 export default useInfiniteScroll;
+
+	
+// const useInfiniteScroll = (ref) => {
+//   const [isIntersecting, setIsIntersecting] = useState(false);
+  
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(([entry]) => {
+//       setIsIntersecting(true);
+      
+//     }, {
+//       threshold: 1.0
+//     });
+
+// if (ref.current) {
+//   observer.observe(ref.current);
+// }
+
+// return () => {
+  
+//   if(ref.current){
+//   observer.unobserve(ref.current);
+//   }
+// };
+//   }, [ref.current]);
+
+//   return isIntersecting;
+// };
+
+// export default useInfiniteScroll

@@ -53,14 +53,14 @@ function Content() {
   const { useToken } = theme;
   const {token}=useToken()
   return (
-      <div>
+      
 
       
        <Routes>
         <Route exact path="/" element={ <ErrorBoundary fallback={<h1 style={{color:token.colorText}}> "There is a Error in the HomePage Component"</h1>}><HomePage /></ErrorBoundary>}></Route>
         <Route exact path="/settings" element={<SettingPage />}></Route>
       </Routes>
-      </div>
+      
       
       
          

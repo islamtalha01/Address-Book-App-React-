@@ -3,10 +3,11 @@ import Sidebar from "../Sidebar";
 import React, { useContext } from 'react';
 import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom'; 
-import { Select, Space } from 'antd';
+import { Select, Space,Row,Layout } from 'antd';
 const { Option } = Select;
 const SettingPage=()=>
 {
+    const { Footer, Content } = Layout;  
     const navigate=useNavigate()
     const {setSelectedNationality } = useContext(AppContext);
     const handleChange = (value)=> {
@@ -20,8 +21,9 @@ const SettingPage=()=>
      
 return(
     <>
+    <Row style={{flexDirection:'column',minHeight: "100vh"}}>
     <Header/>
-    <div style={{display:"flex",flexDirection:'row',width:"100vw",height:"100vh"}}>
+    <Row style={{height:"100vh"}}>
     <Sidebar/>
    
 
@@ -61,8 +63,20 @@ return(
     </Option>
   </Select>
 
-    </div>
-    
+    </Row>
+    <Footer
+        style={{
+          textAlign: "center",
+          color: "#fff",
+          backgroundColor: "#000000",
+          width: "100%",
+          marginTop: "auto ",
+        }}
+      >
+        Engineering Department Carbonteq
+      </Footer>
+
+      </Row>
     </>
     
 )
