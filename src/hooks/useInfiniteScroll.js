@@ -4,17 +4,21 @@ import { AppContext } from "../AppContext";
 
 
 function useInfiniteScroll(elementRef) {
-  const {setTotalUser}=useContext(AppContext)
-const [isIntersecting, setIsIntersecting] = useState(false);
+  const {setTotalUser,setIsIntersecting,Intersecting}=useContext(AppContext)
+
+
+
+
 useEffect(() => {
   const observer = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting) {
-       setIsIntersecting(true)
-       
-      }
+        
+        setIsIntersecting(prev=>!prev)
+        console.log("scrolled Down")
+      } 
     },
-    { overflow: "hidden",threshold: 1 }
+    { threshold: 0.3 }
   );
 
   if (elementRef.current) {
@@ -26,11 +30,12 @@ useEffect(() => {
       observer.unobserve(elementRef.current);
     }
   };
-
+  
+ 
   
 }, [elementRef]);
  
-return isIntersecting
+return Intersecting
  
 }
 

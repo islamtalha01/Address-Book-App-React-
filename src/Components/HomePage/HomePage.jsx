@@ -24,16 +24,17 @@ import UserModal from "./UserModal";
 import useDataFetch from "../../hooks/useDataFetch";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 const { Meta } = Card;
-let renderCount = 0;
+
 function HomePage() {
   const { token } = useToken();
 
   const {
     searchText,
-    loading
+    loading,elementRef
   } = useContext(AppContext);
-  const elementRef = useRef(null);
-  const onIntersection=useInfiniteScroll(elementRef)
+  
+
+ useInfiniteScroll(elementRef)
 
   const {usersData}=useDataFetch(50)
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,9 +75,8 @@ function HomePage() {
 
   
 
-  renderCount++;
 
-console.log("scrolled",onIntersection,renderCount)
+
 
 
 
@@ -206,7 +206,7 @@ console.log("scrolled",onIntersection,renderCount)
 
       </Row>
 
-      <div ref={elementRef} style={{ textAlign: "center", height: "auto",marginTop:'20px' }}>
+      <div ref={elementRef} style={{ textAlign: "center", height: "10",marginTop:'60px' }}>
           Loading...
       </div>
     </>

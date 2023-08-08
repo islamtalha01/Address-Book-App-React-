@@ -6,12 +6,11 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [searchText, setSearchText] = useState('');
   const [selectedNationality, setSelectedNationality] = useState('');
-  const [loading, setLoading]= useState(false)
-  const [hasMore,setHasMore]=useState(true)
-  const [totalUsers, setTotalUser] = useState(0);
-  const elementRef=useRef(null)
+  const elementRef = useRef(null);
+  const [Intersecting, setIsIntersecting] = useState(false);
+
   return (
-    <AppContext.Provider value={{ searchText, setSearchText,selectedNationality,setSelectedNationality,loading,setLoading,hasMore,setHasMore,totalUsers,setTotalUser}}>
+    <AppContext.Provider value={{ searchText, setSearchText,selectedNationality,setSelectedNationality,elementRef,Intersecting,setIsIntersecting}}>
       {children}
     </AppContext.Provider>
   );
