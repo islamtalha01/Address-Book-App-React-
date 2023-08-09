@@ -11,7 +11,7 @@ function AppHeader() {
 	
 	const handleSearchInput=(e)=>
 	{
-  
+    
 		setSearchText(e.target.value);
 		console.log(e.target.value);
 	  

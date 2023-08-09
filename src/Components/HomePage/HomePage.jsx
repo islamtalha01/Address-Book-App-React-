@@ -29,14 +29,13 @@ function HomePage() {
   const { token } = useToken();
 
   const {
-    searchText,
-    loading
+    searchText
   } = useContext(AppContext);
   const elementRef = useRef(null);
 
   const onIntersection=useInfiniteScroll(elementRef)
 
-  const {usersData}=useDataFetch(50)
+  const {usersData,endOfUsers,loading}=useDataFetch(50)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const {isFirstRender,setFirstRender}=useState(true)
@@ -54,7 +53,7 @@ function HomePage() {
     setIsModalOpen(false);
   };
 
- const endOfUsers=null;
+ 
 
 
 
@@ -74,7 +73,7 @@ function HomePage() {
    
 
   
-
+console.log("value of End od users",endOfUsers)
 
 
 
@@ -130,7 +129,7 @@ function HomePage() {
         </Col>
         <Col span={21}>
           <Row
-            gutter={12}
+            gutter={[4,4]}
             style={{ marginRight: "0px", marginLeft: "0px" }}
           >
             {usersData && filterData().length > 0 &&
@@ -167,35 +166,21 @@ function HomePage() {
         </Col>
       </Row>
       <Row style={{ justifyContent: "center" }}>
-        {loading && (
+        {!searchText.length>0 && loading && (
           <Spin tip="Loading" size="small">
             <div className="content" />
           </Spin>
         )}
       </Row>
 
-      {endOfUsers && (
-        <div>
-          {" "}
-          <p
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {" "}
-            End of users
-          </p>
-        </div>
-      )}
+    
 
       
         
       <div ref={elementRef} style={{ display:"flex",textAlign: "center", height: "10",marginTop: "auto " }}>
-          Loading...
+          
       </div>
-     { endOfUsers && <Footer
+     {endOfUsers && <Footer
         style={{
           textAlign: "center",
           color: "#fff",
@@ -213,3 +198,24 @@ function HomePage() {
   );
 }
 export default HomePage;
+
+
+
+
+
+
+  {/* {endOfUsers && (
+        <div>
+          {" "}
+          <p
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {" "}
+            End of users
+          </p>
+        </div>
+      )} */}

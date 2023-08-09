@@ -9,7 +9,7 @@ function useDataFetch(limit=50) {
   const [endOfUsers,setEndOfUsers]=useState(false)
   const [totalUsers,setTotalUsers]=useState(0)
   const isfirstRender=useRef(true)
-
+  const [loading,setLoading]=useState(false)
   const fetchData = [];
  
   
@@ -17,7 +17,7 @@ function useDataFetch(limit=50) {
 
     try {
       
-      // setLoading(true)
+      setLoading(true)
 
        if( isfirstRender.current) {
          limit= limit*2;
@@ -48,7 +48,7 @@ function useDataFetch(limit=50) {
         {
 
          
-          setEndOfUsers((prev)=>!prev)
+          setEndOfUsers(true)
 
 
         }
@@ -64,7 +64,7 @@ function useDataFetch(limit=50) {
    
   }, [Intersecting]);
 
-  return {usersData,endOfUsers};
+  return {usersData,endOfUsers,loading};
 }
 
 export default useDataFetch;

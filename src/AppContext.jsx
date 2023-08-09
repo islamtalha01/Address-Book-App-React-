@@ -6,9 +6,8 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [searchText, setSearchText] = useState('');
   const [selectedNationality, setSelectedNationality] = useState('');
-
   const [Intersecting, setIsIntersecting] = useState(false);
-
+  
   return (
     <AppContext.Provider value={{ searchText, setSearchText,selectedNationality,setSelectedNationality,Intersecting,setIsIntersecting}}>
       {children}

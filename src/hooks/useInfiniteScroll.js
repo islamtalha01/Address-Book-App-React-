@@ -4,7 +4,7 @@ import { AppContext } from "../AppContext";
 
 
 function useInfiniteScroll(elementRef) {
-  const {setTotalUser,setIsIntersecting,Intersecting}=useContext(AppContext)
+  const {setIsIntersecting,Intersecting}=useContext(AppContext)
 
 
 
