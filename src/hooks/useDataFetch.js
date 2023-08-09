@@ -3,7 +3,7 @@ import userDataService from "../services/userdata";
 import { AppContext } from '../AppContext';
 function useDataFetch(limit=50) {
   const {
-    selectedNationality,setTotalUser,Intersecting
+    selectedNationality,Intersecting
   } = useContext(AppContext);
   const [usersData, setUsersData] = useState([]);
   const [endOfUsers,setEndOfUsers]=useState(false)

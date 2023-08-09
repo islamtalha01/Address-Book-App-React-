@@ -13,7 +13,7 @@ function AppHeader() {
 	{
     
 		setSearchText(e.target.value);
-		console.log(e.target.value);
+	
 	  
 	}
   return (
