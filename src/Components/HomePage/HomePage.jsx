@@ -20,7 +20,7 @@ const { Footer, Content } = Layout;
 import { useState, useEffect } from "react";
 import "./style.css";
 import {} from "antd";
-import UserModal from "./UserModal";
+import UserModal from "../UserModal/UserModal";
 import useDataFetch from "../../hooks/useDataFetch";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 const { Meta } = Card;
@@ -40,7 +40,7 @@ function HomePage() {
 
   const showModal = (data, index) => {
     setIsModalOpen(true);
-
+   
     setModalData(data);
   };
   const handleOk = () => {
