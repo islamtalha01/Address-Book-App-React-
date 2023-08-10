@@ -105,8 +105,8 @@ function HomePage() {
           </Col>
           <Col span={21}>
             <Row
-              gutter={[4, 4]}
-              style={{ marginRight: "0px", marginLeft: "0px" }}
+              gutter={[10, 10]}
+              style={{ flexWrap:'wrap' }}
             >
               {usersData &&
                 filterData().length > 0 &&
@@ -118,7 +118,7 @@ function HomePage() {
                     md={token.sizeSM}
                     lg={token.sizeXS}
                     xl={token.sizeXXS}
-                    style={{ padding: "0px" }}
+                    // style={{ padding: "0px" }}
                   >
                     <Card
                       hoverable

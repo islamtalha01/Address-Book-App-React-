@@ -6,7 +6,7 @@ import { AppContext } from '../../AppContext';
 function AppHeader() {
 	const { searchText, setSearchText } = useContext(AppContext);
   const { useToken } = theme;
-   const { token } = useToken();
+  const { token } = useToken();
   
 	
 	const handleSearchInput=(e)=>

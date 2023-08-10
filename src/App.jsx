@@ -11,7 +11,7 @@ import NotFound from "./Components/NotFound/NotFound";
 
 function App() {
   const [dark, setDark] = useState(false);
-  
+
   const handleChecked = (checked) => {
     if (checked) setDark(true);
     else setDark(false);
@@ -24,51 +24,52 @@ function App() {
           token: dark ? darkTheme : lightTheme,
         }}
       >
-       
-          <Layout
-            style={{
-              display: "flex",	
-			        minHeight:"100vh" //min-height will 
-            }}
-          >
-            <Row justify="end" style={{ padding: "10px" }}>
-              <Switch
-                checkedChildren="Light"
-                unCheckedChildren="Dark"
-                onChange={handleChecked}
-              />
-            </Row>
-            
-            <Content />
-            
-           
-          </Layout>
-       
+        <Layout
+          style={{
+            display: "flex",
+            minHeight: "100vh", //min-height will
+          }}
+        >
+          <Row justify="end" style={{ padding: "10px" }}>
+            <Switch
+              checkedChildren="Light"
+              unCheckedChildren="Dark"
+              onChange={handleChecked}
+            />
+          </Row>
+
+          <Content />
+        </Layout>
       </ConfigProvider>
     </AppProvider>
   );
 }
 function Content() {
   const { useToken } = theme;
-  const {token}=useToken()
+  const { token } = useToken();
   return (
-      
-
-      
-       <Routes>
-        <Route exact path="/" element={ <ErrorBoundary fallback={<h1 style={{color:token.colorText}}> "There is a Error in the HomePage Component"</h1>}><HomePage /></ErrorBoundary>}></Route>
-        <Route exact path="/settings" element={<SettingPage />}></Route>
-        <Route exact path ="*" element={<NotFound/>}> </Route>
-      </Routes>
-      
-      
-      
-         
-      
-     
-    
-    
-     
+    <Routes>
+      <Route
+        exact
+        path="/"
+        element={
+          <ErrorBoundary
+            fallback={
+              <h1 style={{ color: token.colorText }}>
+                {" "}
+                "There is a Error in the HomePage Component"
+              </h1>
+            }
+          >
+            <HomePage />
+          </ErrorBoundary>
+        }
+      ></Route>
+      <Route exact path="/settings" element={<SettingPage />}></Route>
+      <Route exact path="*" element={<NotFound />}>
+        {" "}
+      </Route>
+    </Routes>
   );
 }
 export default App;
