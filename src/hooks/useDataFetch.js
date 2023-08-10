@@ -22,6 +22,7 @@ function useDataFetch(limit=50) {
        if( isfirstRender.current) {
          limit= limit*2;
          isfirstRender.current=false
+         console.log("Hi",isfirstRender)
        }
         
         if(totalUsers<=1000){
@@ -57,13 +58,25 @@ function useDataFetch(limit=50) {
     }
   };
 
+  // useEffect(() => {
+    
+  //   getUsersData();
+  //   console.log(totalUsers)
+   
+  // }, [Intersecting]);
+
+
   useEffect(() => {
     
     getUsersData();
     console.log(totalUsers)
+    console.log("Array size",usersData.length)
    
-  }, [Intersecting]);
+  }, []);
 
+
+
+  
   return {usersData,endOfUsers,loading};
 }
 

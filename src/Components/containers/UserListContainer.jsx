@@ -1,21 +1,22 @@
-import { Row, theme } from "antd";
-const { useToken } = theme;
+import { Row } from "antd";
 import React, { useContext, useRef } from "react";
 import { AppContext } from "../../AppContext";
 import { useState } from "react";
 import UserModal from "../UserModal/UserModal";
 import useDataFetch from "../../hooks/useDataFetch";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
-
+import Loading from "../Loading";
+import UserList from "../UserList";
 function UserListContainer() {
-  const { token } = useToken();
+  const { searchText,elementRef } = useContext(AppContext);
 
-  const { searchText } = useContext(AppContext);
-  const elementRef = useRef(null);
 
+  // const elementRef = useRef(null); 
+  
   useInfiniteScroll(elementRef);
 
-  const { usersData, endOfUsers, loading } = useDataFetch(50);
+  const { usersData,loading } = useDataFetch(50);
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const { isFirstRender, setFirstRender } = useState(true);
@@ -47,21 +48,24 @@ function UserListContainer() {
 
   return (
     <>
-      <Row>
-        <Row>
+      
+        
           <UserModal
             modalData={modalData}
             isModalOpen={isModalOpen}
             handleOk={handleOk}
             handleCancel={handleCancel}
           />
-        </Row>
+        
         <UserList
           usersData={usersData}
           filterData={filterData}
           showModal={showModal}
         />
-      </Row>
+        <Loading searchText={searchText} loading={loading} />
+
+        
+      
     </>
   );
 }

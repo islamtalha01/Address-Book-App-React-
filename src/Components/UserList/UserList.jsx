@@ -6,7 +6,7 @@ function UserList({usersData,filterData,showModal})
   const { Meta } = Card;
   const { token } = useToken();
 
-render(
+return(
 
 <>
 <Row

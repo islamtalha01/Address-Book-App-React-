@@ -2,7 +2,7 @@
 import "./style.css";
 import { Row,Spin } from "antd";
 
-function Loading (){
+function Loading ({searchText,loading}){
 
 
 

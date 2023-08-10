@@ -8,7 +8,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import ErrorBoundary from "./errorboundary";
 import SettingPage from "./Components/SettingsPage";
 import NotFound from "./Components/NotFound/NotFound";
-
+import AppRoutes from "./routes/AppRoutes";
 function App() {
   const [dark, setDark] = useState(false);
 
@@ -37,39 +37,40 @@ function App() {
               onChange={handleChecked}
             />
           </Row>
+          <AppRoutes/>
+          {/* <Content /> */}
 
-          <Content />
         </Layout>
       </ConfigProvider>
     </AppProvider>
   );
 }
-function Content() {
-  const { useToken } = theme;
-  const { token } = useToken();
-  return (
-    <Routes>
-      <Route
-        exact
-        path="/"
-        element={
-          <ErrorBoundary
-            fallback={
-              <h1 style={{ color: token.colorText }}>
-                {" "}
-                "There is a Error in the HomePage Component"
-              </h1>
-            }
-          >
-            <HomePage />
-          </ErrorBoundary>
-        }
-      ></Route>
-      <Route exact path="/settings" element={<SettingPage />}></Route>
-      <Route exact path="*" element={<NotFound />}>
-        {" "}
-      </Route>
-    </Routes>
-  );
-}
+// function Content() {
+//   const { useToken } = theme;
+//   const { token } = useToken();
+//   return (
+//     <Routes>
+//       <Route
+//         exact
+//         path="/"
+//         element={
+//           <ErrorBoundary
+//             fallback={
+//               <h1 style={{ color: token.colorText }}>
+//                 {" "}
+//                 "There is a Error in the HomePage Component"
+//               </h1>
+//             }
+//           >
+//             <HomePage />
+//           </ErrorBoundary>
+//         }
+//       ></Route>
+//       <Route exact path="/settings" element={<SettingPage />}></Route>
+//       <Route exact path="*" element={<NotFound />}>
+//         {" "}
+//       </Route>
+//     </Routes>
+//   );
+// }
 export default App;
