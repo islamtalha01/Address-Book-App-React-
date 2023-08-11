@@ -1,7 +1,7 @@
 import { Row, Col } from "antd";
 import UserListContainer from "../Components/containers/UserListContainer";
-import AppFooter from "../Components/Footer";
-import AppHeader from "../Components/Header";
+import AppFooter from "../Components/AppFooter";
+import AppHeader from "../Components/AppHeader";
 import Sidebar from "../Components/Sidebar";
 import React, { useContext } from "react";
 import { AppContext } from "../../src/AppContext";
@@ -22,7 +22,7 @@ function HomePageMock() {
         </Col>
       </Row>
      
-      <div
+      < div
           ref={elementRef}
           style={{
             display: "flex",
@@ -35,7 +35,7 @@ function HomePageMock() {
 
      
       
-      <AppFooter />
+      <AppFooter/>
     </Row>
   );
 }

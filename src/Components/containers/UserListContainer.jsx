@@ -1,5 +1,5 @@
-import { Row } from "antd";
-import React, { useContext, useRef } from "react";
+
+import React, { useContext } from "react";
 import { AppContext } from "../../AppContext";
 import { useState } from "react";
 import UserModal from "../UserModal/UserModal";
@@ -16,7 +16,7 @@ function UserListContainer() {
   useInfiniteScroll(elementRef);
 
   const { usersData,loading } = useDataFetch(50);
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
   const { isFirstRender, setFirstRender } = useState(true);
@@ -38,7 +38,7 @@ function UserListContainer() {
       setFirstRender(false);
       return usersData; // Return the original array when dataArray is empty
     }
-    const filteredData = usersData.slice(0, -50).filter((item) => {
+    const filteredData = usersData.filter((item) => {
       const fullName = `${item.element.name.first} ${item.element.name.last}`;
       return fullName.toLowerCase().includes(searchText.toLowerCase());
     });

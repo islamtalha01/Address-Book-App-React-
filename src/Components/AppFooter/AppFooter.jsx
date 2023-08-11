@@ -1,9 +1,9 @@
 import { Footer } from "antd/es/layout/layout";
-import useDataFetch from "../../hooks/useDataFetch";
-
+import { useContext } from "react";
+import { AppContext } from "../../AppContext";
 function AppFooter(){
-const {endOfUsers}=useDataFetch()
 
+  const {endOfUsers } = useContext(AppContext);
 
 return(
     endOfUsers && (
