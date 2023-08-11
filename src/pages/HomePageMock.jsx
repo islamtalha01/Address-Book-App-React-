@@ -10,14 +10,14 @@ function HomePageMock() {
 
 
   return (
-    <Row style={{ flexDirection: "column", minHeight: "100vh" }}>
+    <Row style={{ flexDirection: "column", minHeight: "100vh",margin: "0px 0px " }}>
       <AppHeader />
 
-      <Row>
+      <Row gutter={2} style={{flexWrap:'wrap',margin:"0px 0px"}}>
         <Col span={3}>
           <Sidebar />
         </Col>
-        <Col span={21}>
+        <Col span={21} style={{padding:"0px 0px"}}>
           <UserListContainer />
         </Col>
       </Row>

@@ -12,7 +12,7 @@ return(
 <Row
 gutter={[10, 10]}
 
-style={{ flexWrap:'wrap' }}   //set margins to zero to eliminite the horizontal scroll
+style={{ marginLeft:"0px",marginRight:"2.5px" }}   
 >
 {usersData &&
   filterData().length > 0 &&
@@ -24,7 +24,7 @@ style={{ flexWrap:'wrap' }}   //set margins to zero to eliminite the horizontal 
       md={token.sizeSM}
       lg={token.sizeXS}
       xl={token.sizeXXS}
-      // style={{ padding: "0px" }}
+      // style={{ padding: "0px 0px" }}
     >
       <Card
         hoverable

@@ -179,12 +179,12 @@ function useDataFetch(limit = 50) {
 
   useEffect(() => {
     getUsersData();
-    console.log("hi")
+    // console.log("hi")
     console.log(totalUsers);
   }, [Intersecting]);
 
   useEffect(()=>{
-    console.log("yi")
+    // console.log("yi")
     UpdateUserData("prefetch")
 
 
