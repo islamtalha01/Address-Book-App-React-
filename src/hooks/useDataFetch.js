@@ -65,7 +65,7 @@
 //           setpreFetchUsers(preFetchData);
 //         }
 //         setTotalUsers((prev) => prev + 50);
-//       } 
+//       }
 //       else {
 //         setEndOfUsers(true);
 //         setLoading(false);
@@ -83,16 +83,12 @@
 
 //   useEffect(()=>{
 
-
-
-
 //   },[])
 
 //   return { usersData, endOfUsers, loading };
 // }
 
 // export default useDataFetch;
-
 
 import { useEffect, useState, useRef, useContext } from "react";
 import userDataService from "../services/userdata";
@@ -110,10 +106,9 @@ function useDataFetch(limit = 50) {
 
   const getUsersData = async () => {
     try {
-     
       if (totalUsers <= 1000) {
         if (isfirstRender.current) {
-            setLoading(true);
+          setLoading(true);
           const firstdatabatch = await userDataService.get(
             selectedNationality,
             limit
@@ -156,8 +151,7 @@ function useDataFetch(limit = 50) {
           setpreFetchUsers(preFetchData);
         }
         setTotalUsers((prev) => prev + 50);
-      } 
-      else {
+      } else {
         setEndOfUsers(true);
         setLoading(false);
       }
@@ -166,29 +160,21 @@ function useDataFetch(limit = 50) {
     }
   };
 
-  function UpdateUserData()
-  {
+  function UpdateUserData() {
     if (totalUsers <= 1000) {
-    setLoading(true);
-    setUsersData((prev) => [...prev, ...preFetchUsers]);
-    setLoading(false);
+      setLoading(true);
+      setUsersData((prev) => [...prev, ...preFetchUsers]);
+      setLoading(false);
     }
   }
 
-
-
   useEffect(() => {
     getUsersData();
-    // console.log("hi")
-    console.log(totalUsers);
   }, [Intersecting]);
 
-  useEffect(()=>{
-    // console.log("yi")
-    UpdateUserData("prefetch")
-
-
-  },[Intersecting])
+  useEffect(() => {
+    UpdateUserData();
+  }, [Intersecting]);
 
   return { usersData, endOfUsers, loading };
 }
