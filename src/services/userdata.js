@@ -1,7 +1,6 @@
 import axios from "axios";
 const baseUrl = import.meta.env.VITE_RandomUsers_API_Base_URL;
 
-console.log(baseUrl);
 const getuserdata = async (query, limit) => {
   const apiurl = `${baseUrl}results=${limit}&nat=${query}`;
 

@@ -6,8 +6,8 @@ import NationalitySelector from "../NationalitySelector/NationalitySelector.jsx"
 const NationalitySelectorContainer = () => {
   const navigate = useNavigate();
   const { setSelectedNationality } = useContext(AppContext);
+  
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
     setSelectedNationality(value);
     navigate("/");
   };

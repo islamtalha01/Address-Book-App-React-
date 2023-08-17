@@ -8,9 +8,7 @@ import Loading from "../Loading";
 import UserList from "../UserList";
 function UserListContainer() {
   const { searchText, elementRef } = useContext(AppContext);
-
   useInfiniteScroll(elementRef);
-
   const { usersData, loading } = useDataFetch(50);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,14 +26,16 @@ function UserListContainer() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  
   function filterData() {
-    if (isFirstRender) {
+    if (isFirstRender) { //use loading 
       setFirstRender(false);
       return usersData;
     }
     const filteredData = usersData.filter((item) => {
-      const fullName = `${item.element.name.first} ${item.element.name.last}`;
+     
+    
+        const fullName = `${item.name?.first} ${item.name?.last}`;
       return fullName.toLowerCase().includes(searchText.toLowerCase());
     });
 

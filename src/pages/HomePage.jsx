@@ -4,8 +4,8 @@ import AppFooter from "../Components/AppFooter";
 import AppHeader from "../Components/AppHeader";
 import Sidebar from "../Components/Sidebar";
 import React, { useContext } from "react";
-import { AppContext } from "../../src/AppContext";
-function HomePageMock() {
+import { AppContext } from "../AppContext";
+function HomePage() {
   const { elementRef } = useContext(AppContext);
 
   return (
@@ -42,4 +42,4 @@ function HomePageMock() {
   );
 }
 
-export default HomePageMock;
+export default HomePage;

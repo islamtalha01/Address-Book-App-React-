@@ -40,13 +40,14 @@ function UserList({ usersData, filterData, showModal }) {
                   style={{
                     display: "block",
                   }}
-                  title={item.element.name.first + " " + item.element.name.last}
-                  avatar={<Avatar src={item.element.picture.thumbnail} />}
+                  title={item.name?.first + " " + item.name?.last}
+                  avatar={<Avatar src={item.picture?.thumbnail} />}
                   description={
                     <>
-                      <p>Email: {item.element.email}</p>
+                     <p>index:{index}</p>
+                      <p>Email: {item.email}</p>
 
-                      <p>Username : {item.element.login.username} </p>
+                      <p>Username : {item.login?.username} </p>
                     </>
                   }
                 />

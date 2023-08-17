@@ -9,18 +9,18 @@ function UserModal({ modalData, isModalOpen, handleCancel, handleOk }) {
       onOk={handleOk}
       onCancel={handleCancel}
     >
-      {modalData.element && (
+      { modalData?.name && (
         <div>
           <p>
             Street:{" "}
-            {`${modalData.element.location.street.name} ${modalData.element.location.street.number}`}
+            {`${modalData.location.street.name} ${modalData.location.street.number}`}
           </p>
-          <p>Postal Code: {modalData.element.location.postcode}</p>
-          <p>State: {modalData.element.location.state}</p>
+          <p>Postal Code: {modalData.location.postcode}</p>
+          <p>State: {modalData.location.state}</p>
 
-          <p>Phone: {modalData.element.phone}</p>
-          <p>Cell: {modalData.element.cell}</p>
-          <p>Nationality: {modalData.element.nat}</p>
+          <p>Phone: {modalData.phone}</p>
+          <p>Cell: {modalData.cell}</p>
+          <p>Nationality: {modalData.nat}</p>
         </div>
       )}
     </Modal>

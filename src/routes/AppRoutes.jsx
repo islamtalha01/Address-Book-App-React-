@@ -1,4 +1,4 @@
-import HomePageMock from "../pages/HomePageMock";
+import HomePage from "../pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import ErrorBoundary from "../errorboundary";
 import { theme } from "antd";
@@ -17,11 +17,11 @@ function AppRoutes() {
             <ErrorBoundary
               fallback={
                 <h1 style={{ color: token.colorText }}>
-                  "There is a Error in the HomePageMock Component"
+                  There is a Error in the HomePage Component
                 </h1>
               }
             >
-              <HomePageMock />
+              <HomePage />
             </ErrorBoundary>
           }
         ></Route>
