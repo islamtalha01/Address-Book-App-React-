@@ -1,8 +1,8 @@
 import { Row, Col } from "antd";
-import UserListContainer from "../Containers/UserListContainer";
-import AppFooter from "../Components/AppFooter";
-import AppHeader from "../Components/AppHeader";
-import Sidebar from "../Components/Sidebar";
+import UserListContainer from "../containers/UserListContainer";
+import AppFooter from "../components/AppFooter";
+import AppHeader from "../components/AppHeader";
+import Sidebar from "../components/Sidebar";
 import React, { useContext } from "react";
 import { AppContext } from "../AppContext";
 import inLineStyles from "../inLineStyles";

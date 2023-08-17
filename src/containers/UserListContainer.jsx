@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect } from "react";
 import { AppContext } from "../AppContext";
 import { useState } from "react";
-import UserModal from "../Components/UserModal";
+import UserModal from "../components/UserModal";
 import useDataFetch from "../hooks/useDataFetch";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
-import Loading from "../Components/Loading";
-import UserList from "../Components/UserList";
+import Loading from "../components/Loading";
+import UserList from "../components/UserList";
 function UserListContainer() {
   const { searchText, elementRef } = useContext(AppContext);
-  useInfiniteScroll(elementRef);
-  const { usersData, loading } = useDataFetch(50);
+  const {Intersecting}=useInfiniteScroll(elementRef);
+  const { usersData, loading,getUsersData } = useDataFetch(50);
   
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
@@ -31,6 +31,10 @@ function UserListContainer() {
         return fullName.toLowerCase().includes(searchText.toLowerCase());
       });
     
+  
+  useEffect(() => {
+    getUsersData();
+  }, [Intersecting]);    
   return (
     <>
       <UserModal

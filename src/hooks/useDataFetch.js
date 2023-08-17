@@ -3,7 +3,7 @@ import userDataService from "../services/userdata";
 import { AppContext } from "../AppContext";
 const MAX_USER = 1000;
 function useDataFetch(limit = 50) {
-  const { selectedNationality, endOfUsers, setEndOfUsers, Intersecting } =
+  const { selectedNationality, endOfUsers, setEndOfUsers } =
     useContext(AppContext);
 
   const [usersData, setUsersData] = useState([]);
@@ -46,11 +46,11 @@ function useDataFetch(limit = 50) {
     }
   };
 
-  useEffect(() => {
-    getUsersData();
-  }, [Intersecting]);
+  // useEffect(() => {
+  //   getUsersData();
+  // }, [Intersecting]);
 
-  return { usersData, endOfUsers, loading };
+  return { usersData, endOfUsers, loading,getUsersData };
 }
 
 export default useDataFetch;

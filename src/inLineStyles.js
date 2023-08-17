@@ -6,7 +6,7 @@ const inLineStyles = createStyles(({ token, css }) => ({
     color: "#fff",
     backgroundColor: "#000000",
     width: "100%",
-    marginTop: "auto ",
+    marginTop: "auto",
   },
 
   appHeader: {

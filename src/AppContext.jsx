@@ -7,11 +7,11 @@ export const AppProvider = ({ children }) => {
   const elementRef = useRef(null); 
   const [searchText, setSearchText] = useState('');
   const [selectedNationality, setSelectedNationality] = useState('');
-  const [Intersecting, setIntersecting] = useState(false);
+  // const [Intersecting, setIntersecting] = useState(false);
   const [endOfUsers,setEndOfUsers]=useState(false)
  
   return (
-    <AppContext.Provider value={{ searchText, setSearchText,selectedNationality,setSelectedNationality,elementRef,endOfUsers,setEndOfUsers,Intersecting, setIntersecting}}>
+    <AppContext.Provider value={{ searchText, setSearchText,selectedNationality,setSelectedNationality,elementRef,endOfUsers,setEndOfUsers}}>
       {children}
     </AppContext.Provider>
   );

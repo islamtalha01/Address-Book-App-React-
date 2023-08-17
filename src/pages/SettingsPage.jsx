@@ -1,7 +1,7 @@
-import AppHeader from "../Components/AppHeader";
-import Sidebar from "../Components/Sidebar";
+import AppHeader from "../components/AppHeader";
+import Sidebar from "../components/Sidebar";
 import { Row } from "antd";
-import NationalitySelectorContainer from "../Containers/NationalitySelectorContainer";
+import NationalitySelectorContainer from "../containers/NationalitySelectorContainer";
 import inLineStyles from "../inLineStyles";
 const SettingsPage = () => {
   const {styles}=inLineStyles()

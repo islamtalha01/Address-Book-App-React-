@@ -7,9 +7,7 @@ function UserList({ filteredUsersData, showModal }) {
   return (
     <>
       <Row
-        
-      
-        className={cx('a-simple-create-style-demo-classname', styles.usersListContainer)}
+        className={styles.usersListContainer}
         gutter={[10, 10]}
       >
         {filteredUsersData &&
