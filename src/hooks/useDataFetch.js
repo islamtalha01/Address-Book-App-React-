@@ -1,70 +1,56 @@
-import { useEffect, useState, useRef,useContext } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import userDataService from "../services/userdata";
-import { AppContext } from '../AppContext';
-function useDataFetch(limit=50) {
-  const {
-    selectedNationality,Intersecting
-  } = useContext(AppContext);
+import { AppContext } from "../AppContext";
+const MAX_USER = 1000;
+function useDataFetch(limit = 50) {
+  const { selectedNationality, endOfUsers, setEndOfUsers, Intersecting } =
+    useContext(AppContext);
+
   const [usersData, setUsersData] = useState([]);
-  const [endOfUsers,setEndOfUsers]=useState(false)
-  const [totalUsers,setTotalUsers]=useState(0)
-  const isfirstRender=useRef(true)
-  const [loading,setLoading]=useState(false)
-  const fetchData = [];
- 
-  
+  const [loading, setLoading] = useState(false);
+  const [totalUsers, setTotalUsers] = useState(50);
+  const isfirstRender = useRef(true);
+  const [preFetchUsers, setpreFetchUsers] = useState([]);
+
   const getUsersData = async () => {
-
     try {
-      
-      setLoading(true)
+      if (totalUsers <= MAX_USER) {
+        setUsersData((prev) => [...prev, ...preFetchUsers]);
 
-       if( isfirstRender.current) {
-         limit= limit*2;
-         isfirstRender.current=false
-       }
-        
-        if(totalUsers<=1000){
-        const data = await userDataService.get(selectedNationality,limit)
-        
-        
-          data.forEach((element) => {
-            
-  
-            fetchData.push({
-              element
-            });
-          })
+        if (isfirstRender.current) {
+          setLoading(true);
 
+          const [fetchedUsers, preFetchedUsers] = await Promise.all([
+            userDataService.get(selectedNationality, limit),
+            userDataService.get(selectedNationality, limit),
+          ]);
+          setUsersData(fetchedUsers);
+          setpreFetchUsers(preFetchedUsers);
+          setLoading(false);
+          isfirstRender.current = false;
+        } else {
+          const preFetchedUsers = await userDataService.get(
+            selectedNationality,
+            limit
+          );
 
-        
-
-        setUsersData((prev)=>[...prev,...fetchData])
-        setTotalUsers((prev)=>prev+50)
-        
-      
+          setpreFetchUsers(preFetchedUsers);
         }
-        else
-        {
 
-         
-          setEndOfUsers(true)
-
-
-        }
+        setTotalUsers((prev) => prev + 50);
+      } else {
+        setEndOfUsers(true);
+      }
     } catch (error) {
       console.log("error is", error);
     }
   };
 
   useEffect(() => {
-    
     getUsersData();
-    console.log(totalUsers)
-   
   }, [Intersecting]);
 
-  return {usersData,endOfUsers,loading};
+  return { usersData, endOfUsers, loading };
 }
 
 export default useDataFetch;
