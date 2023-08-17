@@ -1,25 +1,25 @@
 import { Card, Button, Avatar, Row, Col, theme } from "antd";
-const { useToken } = theme;
-function UserList({ usersData, filterData, showModal }) {
+import inLineStyles from "../../inLineStyles";
+function UserList({ filteredUsersData, showModal }) {
   const { Meta } = Card;
-  const { token } = useToken();
 
+  const { styles,cx } = inLineStyles();
   return (
     <>
       <Row
+        className={styles.usersListContainer}
         gutter={[10, 10]}
-        style={{ marginLeft: "0px", marginRight: "2.5px" }}
       >
-        {usersData &&
-          filterData().length > 0 &&
-          filterData().map((item, index) => (
+        {filteredUsersData &&
+          filteredUsersData.length > 0 &&
+          filteredUsersData.map((item, index) => (
             <Col
               key={index}
-              xs={token.sizeMD}
-              sm={token.sizeMS}
-              md={token.sizeSM}
-              lg={token.sizeXS}
-              xl={token.sizeXXS}
+              xs={styles.sizeMD}
+              sm={styles.sizeMS}
+              md={styles.sizeSM}
+              lg={styles.sizeXS}
+              xl={styles.sizeXXS}
             >
               <Card
                 hoverable
@@ -31,20 +31,16 @@ function UserList({ usersData, filterData, showModal }) {
                       showModal(item, index);
                     }}
                   >
-                    {" "}
                     More Info
                   </Button>,
                 ]}
               >
                 <Meta
-                  style={{
-                    display: "block",
-                  }}
-                  title={item.name?.first + " " + item.name?.last}
+                  className={styles.cardMeta}
+                  title={`${item.name?.title} ${item.name?.first} ${item.name?.last}`}
                   avatar={<Avatar src={item.picture?.thumbnail} />}
                   description={
                     <>
-                     <p>index:{index}</p>
                       <p>Email: {item.email}</p>
 
                       <p>Username : {item.login?.username} </p>
@@ -60,7 +56,3 @@ function UserList({ usersData, filterData, showModal }) {
 }
 
 export default UserList;
-
-
-
-

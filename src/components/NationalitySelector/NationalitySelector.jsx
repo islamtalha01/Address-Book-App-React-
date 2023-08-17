@@ -1,17 +1,16 @@
 import { Select, Space } from "antd";
 const { Option } = Select;
+import inLineStyles from "../../inLineStyles";
 function NationalitySelector({ nationalityList, handleChange }) {
-  console.log(nationalityList);
+  const { styles } = inLineStyles();
   return (
     <Select
+      className={styles.nationalitySelector}
       mode="multiple"
-      style={{
-        width: "20%",
-        height: "fit-content",
-      }}
       placeholder="select one country"
       onChange={handleChange}
       optionLabelProp="label"
+
     >
       {nationalityList.map((item, index) => (
         <Option key={index} value={item.value} label={item.label}>

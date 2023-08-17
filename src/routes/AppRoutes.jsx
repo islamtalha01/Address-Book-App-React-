@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import ErrorBoundary from "../errorboundary";
 import { theme } from "antd";
 import SettingsPage from "../pages/SettingsPage";
-import NotFound from "../Components/NotFound";
+import NotFound from "../components/NotFound";
 function AppRoutes() {
   const { useToken } = theme;
   const { token } = useToken();

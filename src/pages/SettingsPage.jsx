@@ -1,14 +1,15 @@
-import AppHeader from "../Components/AppHeader";
-import Sidebar from "../Components/Sidebar";
+import AppHeader from "../components/AppHeader";
+import Sidebar from "../components/Sidebar";
 import { Row } from "antd";
-import NationalitySelectorContainer from "../Components/Containers/NationalitySelectorContainer";
-
+import NationalitySelectorContainer from "../containers/NationalitySelectorContainer";
+import inLineStyles from "../inLineStyles";
 const SettingsPage = () => {
+  const {styles}=inLineStyles()
   return (
     <>
-      <Row style={{ flexDirection: "column", minHeight: "100vh" }}>
+      <Row className={styles.settingsPageContainer}>
         <AppHeader />
-        <Row style={{ height: "100vh" }}>
+        <Row className={styles.settingsPageContentContainer}>
           <Sidebar />
           <NationalitySelectorContainer />
         </Row>
