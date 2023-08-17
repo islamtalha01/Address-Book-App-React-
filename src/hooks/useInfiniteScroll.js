@@ -9,7 +9,7 @@ function useInfiniteScroll(elementRef) {
       (entries) => {
         if (entries[0].isIntersecting) {
           setIntersecting((prev) => !prev);
-          console.log("scrolled Down");
+        
         }
       },
       { threshold: 0.3 }

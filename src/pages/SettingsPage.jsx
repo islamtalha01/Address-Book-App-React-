@@ -1,7 +1,7 @@
 import AppHeader from "../Components/AppHeader";
 import Sidebar from "../Components/Sidebar";
 import { Row } from "antd";
-import NationalitySelectorContainer from "../Components/Containers/NationalitySelectorContainer";
+import NationalitySelectorContainer from "../Containers/NationalitySelectorContainer";
 
 const SettingsPage = () => {
   return (

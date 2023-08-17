@@ -11,7 +11,7 @@ function UserList({ usersData, filterData, showModal }) {
         style={{ marginLeft: "0px", marginRight: "2.5px" }}
       >
         {usersData &&
-          filterData().length > 0 &&
+          usersData.length > 0 &&
           filterData().map((item, index) => (
             <Col
               key={index}

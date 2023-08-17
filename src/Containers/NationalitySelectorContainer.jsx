@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
-import NationalitySelector from "../NationalitySelector/NationalitySelector.jsx";
+import NationalitySelector from "../Components/NationalitySelector";
 
 const NationalitySelectorContainer = () => {
   const navigate = useNavigate();

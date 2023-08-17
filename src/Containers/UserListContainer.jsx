@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../AppContext";
 import { useState } from "react";
-import UserModal from "../UserModal/UserModal";
-import useDataFetch from "../../hooks/useDataFetch";
-import useInfiniteScroll from "../../hooks/useInfiniteScroll";
-import Loading from "../Loading";
-import UserList from "../UserList";
+import UserModal from "../Components/UserModal";
+import useDataFetch from "../hooks/useDataFetch";
+import useInfiniteScroll from "../hooks/useInfiniteScroll";
+import Loading from "../Components/Loading";
+import UserList from "../Components/UserList";
 function UserListContainer() {
   const { searchText, elementRef } = useContext(AppContext);
   useInfiniteScroll(elementRef);
@@ -13,7 +13,7 @@ function UserListContainer() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
-  const { isFirstRender, setFirstRender } = useState(true);
+  // const { isFirstRender, setFirstRender } = useState(true);
 
   const showModal = (data, index) => {
     setIsModalOpen(true);
@@ -28,10 +28,10 @@ function UserListContainer() {
   };
   
   function filterData() {
-    if (isFirstRender) { //use loading 
-      setFirstRender(false);
-      return usersData;
-    }
+    // if (isFirstRender) { //use loading 
+    //   setFirstRender(false);
+    //   return usersData;
+    // }
     const filteredData = usersData.filter((item) => {
      
     

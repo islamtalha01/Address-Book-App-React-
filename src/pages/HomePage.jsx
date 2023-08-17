@@ -1,5 +1,5 @@
 import { Row, Col } from "antd";
-import UserListContainer from "../Components/Containers/UserListContainer";
+import UserListContainer from "../Containers/UserListContainer";
 import AppFooter from "../Components/AppFooter";
 import AppHeader from "../Components/AppHeader";
 import Sidebar from "../Components/Sidebar";
