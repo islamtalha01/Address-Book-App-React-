@@ -13,7 +13,7 @@ function UserListContainer() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
-  // const { isFirstRender, setFirstRender } = useState(true);
+ 
 
   const showModal = (data, index) => {
     setIsModalOpen(true);
@@ -26,22 +26,11 @@ function UserListContainer() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  
-  function filterData() {
-    // if (isFirstRender) { //use loading 
-    //   setFirstRender(false);
-    //   return usersData;
-    // }
-    const filteredData = usersData.filter((item) => {
-     
+  const filteredUsersData = usersData.filter((item) => {
+      const fullName = `${item.name?.first} ${item.name?.last}`;
+        return fullName.toLowerCase().includes(searchText.toLowerCase());
+      });
     
-        const fullName = `${item.name?.first} ${item.name?.last}`;
-      return fullName.toLowerCase().includes(searchText.toLowerCase());
-    });
-
-    return filteredData;
-  }
-
   return (
     <>
       <UserModal
@@ -52,8 +41,8 @@ function UserListContainer() {
       />
 
       <UserList
-        usersData={usersData}
-        filterData={filterData}
+        
+        filteredUsersData={filteredUsersData}
         showModal={showModal}
       />
       <Loading searchText={searchText} loading={loading} />

@@ -1,6 +1,6 @@
 import { Card, Button, Avatar, Row, Col, theme } from "antd";
 const { useToken } = theme;
-function UserList({ usersData, filterData, showModal }) {
+function UserList({ filteredUsersData, showModal }) {
   const { Meta } = Card;
   const { token } = useToken();
 
@@ -10,9 +10,9 @@ function UserList({ usersData, filterData, showModal }) {
         gutter={[10, 10]}
         style={{ marginLeft: "0px", marginRight: "2.5px" }}
       >
-        {usersData &&
-          usersData.length > 0 &&
-          filterData().map((item, index) => (
+        {filteredUsersData &&
+          filteredUsersData.length > 0 &&
+          filteredUsersData.map((item, index) => (
             <Col
               key={index}
               xs={token.sizeMD}
@@ -31,7 +31,6 @@ function UserList({ usersData, filterData, showModal }) {
                       showModal(item, index);
                     }}
                   >
-                    {" "}
                     More Info
                   </Button>,
                 ]}
@@ -40,11 +39,10 @@ function UserList({ usersData, filterData, showModal }) {
                   style={{
                     display: "block",
                   }}
-                  title={item.name?.first + " " + item.name?.last}
+                  title={`${item.name?.title} ${item.name?.first} ${item.name?.last}`}
                   avatar={<Avatar src={item.picture?.thumbnail} />}
                   description={
                     <>
-                     <p>index:{index}</p>
                       <p>Email: {item.email}</p>
 
                       <p>Username : {item.login?.username} </p>
@@ -60,7 +58,3 @@ function UserList({ usersData, filterData, showModal }) {
 }
 
 export default UserList;
-
-
-
-

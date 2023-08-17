@@ -12,8 +12,7 @@ function UserModal({ modalData, isModalOpen, handleCancel, handleOk }) {
       { modalData?.name && (
         <div>
           <p>
-            Street:{" "}
-            {`${modalData.location.street.name} ${modalData.location.street.number}`}
+            Street: {`${modalData.location.street.name} ${modalData.location.street.number}`}
           </p>
           <p>Postal Code: {modalData.location.postcode}</p>
           <p>State: {modalData.location.state}</p>
