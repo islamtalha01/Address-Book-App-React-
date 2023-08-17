@@ -1,8 +1,8 @@
 import { Select, Space } from "antd";
 const { Option } = Select;
-import useStyles from "../../hooks/useStyles";
+import inLineStyles from "../../inLineStyles";
 function NationalitySelector({ nationalityList, handleChange }) {
-  const { styles } = useStyles();
+  const { styles } = inLineStyles();
   return (
     <Select
       className={styles.nationalitySelector}

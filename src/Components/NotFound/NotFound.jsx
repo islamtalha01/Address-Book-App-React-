@@ -1,18 +1,10 @@
 import React from "react";
-import { theme } from "antd";
-
+import inLineStyles from "../../inLineStyles";
 const NotFound = () => {
-  const { useToken } = theme;
-  const { token } = useToken();
+  const {styles}=inLineStyles()
   return (
     <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        color: token.colorText,
-      }}
+      className={styles.notFound}
     >
       <h1>404 - Page Not Found</h1>
       <p>Oops! The page you are looking for does not exist.</p>

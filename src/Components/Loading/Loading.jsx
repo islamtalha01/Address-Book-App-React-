@@ -1,8 +1,8 @@
 import { Row, Spin } from "antd";
-import useStyles from "../../hooks/useStyles";
+import inLineStyles from "../../inLineStyles";
 function Loading({ searchText, loading }) {
 
-  const { styles } = useStyles();
+  const { styles } = inLineStyles();
 
 
   return (

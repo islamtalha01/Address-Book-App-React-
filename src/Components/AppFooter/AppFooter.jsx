@@ -1,9 +1,9 @@
 import { Footer } from "antd/es/layout/layout";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
-import useStyles from "../../hooks/useStyles";
+import inLineStyles from "../../inLineStyles";
 function AppFooter(){
-  const { styles } = useStyles();
+  const { styles } = inLineStyles()
   const {endOfUsers } = useContext(AppContext);
 
 return(

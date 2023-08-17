@@ -10,7 +10,7 @@ function UserListContainer() {
   const { searchText, elementRef } = useContext(AppContext);
   useInfiniteScroll(elementRef);
   const { usersData, loading } = useDataFetch(50);
-
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
  
