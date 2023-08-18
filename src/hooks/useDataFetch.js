@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useContext } from "react";
+import {  useState, useRef, useContext } from "react";
 import userDataService from "../services/userdata";
 import { AppContext } from "../AppContext";
 const MAX_USER = 1000;
@@ -27,6 +27,7 @@ function useDataFetch(limit = 50) {
           setUsersData(fetchedUsers);
           setpreFetchUsers(preFetchedUsers);
           setLoading(false);
+          setEndOfUsers(false);
           isfirstRender.current = false;
         } else {
           const preFetchedUsers = await userDataService.get(
@@ -45,11 +46,7 @@ function useDataFetch(limit = 50) {
       console.log("error is", error);
     }
   };
-
-  // useEffect(() => {
-  //   getUsersData();
-  // }, [Intersecting]);
-
+   console.log(totalUsers)
   return { usersData, endOfUsers, loading,getUsersData };
 }
 

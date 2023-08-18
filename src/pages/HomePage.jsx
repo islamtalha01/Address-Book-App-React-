@@ -8,6 +8,7 @@ import { AppContext } from "../AppContext";
 import inLineStyles from "../inLineStyles";
 function HomePage() {
   const { elementRef } = useContext(AppContext);
+  
   const {styles} =inLineStyles()
   return (
     <Row
@@ -15,7 +16,7 @@ function HomePage() {
     >
       <AppHeader />
 
-      <Row gutter={2} className={styles.homePageContentContainer}>
+      <Row  className={styles.homePageContentContainer}>
         <Col span={3}>
           <Sidebar />
         </Col>
@@ -24,7 +25,7 @@ function HomePage() {
         </Col>
       </Row>
 
-      <div
+       <div
         ref={elementRef}
        className={styles.refElement}
       ></div>

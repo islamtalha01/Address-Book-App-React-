@@ -47,16 +47,20 @@ const inLineStyles = createStyles(({ token, css }) => ({
 
   usersListContainer: {
     marginLeft: "0px",
-    marginRight: "2.5px",
+    marginRight: "0px",
+    paddingRight: "8px",
+    paddingLeft: "8px"
   },
   cardMeta: {
     display: "block",
+
   },
   refElement: {
     display: "flex",
     textAlign: "center",
-    height: "10",
+    height: "20px",
     marginTop: "auto ",
+    backgroundColor:"black"
   },
   homePageContainer: {
     flexDirection: "column",

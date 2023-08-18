@@ -34,7 +34,8 @@ function UserListContainer() {
   
   useEffect(() => {
     getUsersData();
-  }, [Intersecting]);    
+  }, [Intersecting]); 
+  
   return (
     <>
       <UserModal
