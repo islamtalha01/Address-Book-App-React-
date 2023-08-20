@@ -1,20 +1,20 @@
-import React, { useContext,useEffect } from "react";
+import React, { useContext,useEffect,useState } from "react";
 import { AppContext } from "../AppContext";
-import { useState } from "react";
 import UserModal from "../components/UserModal";
 import useDataFetch from "../hooks/useDataFetch";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import Loading from "../components/Loading";
 import UserList from "../components/UserList";
+import inLineStyles from "../inLineStyles";
 function UserListContainer() {
   const { searchText, elementRef } = useContext(AppContext);
   const {Intersecting}=useInfiniteScroll(elementRef);
   const { usersData, loading,getUsersData } = useDataFetch(50);
-  
+  const [initialRender, setInitialRender] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalData, setModalData] = useState({});
- 
-
+  const {styles} =inLineStyles()
+  
   const showModal = (data, index) => {
     setIsModalOpen(true);
 
@@ -34,7 +34,9 @@ function UserListContainer() {
   
   useEffect(() => {
     getUsersData();
-  }, [Intersecting]);    
+    setInitialRender(false);
+  }, [Intersecting]); 
+  
   return (
     <>
       <UserModal
@@ -50,6 +52,10 @@ function UserListContainer() {
         showModal={showModal}
       />
       <Loading searchText={searchText} loading={loading} />
+      {!initialRender && (
+        <div ref={elementRef} className={styles.refElement}></div>
+      )}
+
     </>
   );
 }

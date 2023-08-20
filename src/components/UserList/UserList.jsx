@@ -7,8 +7,9 @@ function UserList({ filteredUsersData, showModal }) {
   return (
     <>
       <Row
+         gutter={[12,12]}
         className={styles.usersListContainer}
-        gutter={[10, 10]}
+        
       >
         {filteredUsersData &&
           filteredUsersData.length > 0 &&
@@ -37,7 +38,7 @@ function UserList({ filteredUsersData, showModal }) {
               >
                 <Meta
                   className={styles.cardMeta}
-                  title={`${item.name?.title} ${item.name?.first} ${item.name?.last}`}
+                  title={`${item.name?.first} ${item.name?.last}`}
                   avatar={<Avatar src={item.picture?.thumbnail} />}
                   description={
                     <>

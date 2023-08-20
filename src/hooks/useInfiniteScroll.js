@@ -1,16 +1,14 @@
-import { useEffect, useContext,useState } from "react";
-import { AppContext } from "../AppContext";
+import { useEffect, useState } from "react";
 
 function useInfiniteScroll(elementRef) {
-  const [ Intersecting,setIntersecting ] = useState(false);
- 
+  const [Intersecting, setIntersecting] = useState(false);
   useEffect(() => {
+   
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          // setIntersecting((prev) => !prev);
-          setIntersecting((prev)=>!prev)
-        
+          
+          setIntersecting((prev) => !prev);
         }
       },
       { threshold: 0.5 }
@@ -19,7 +17,7 @@ function useInfiniteScroll(elementRef) {
     if (elementRef.current) {
       observer.observe(elementRef.current);
     }
-
+    console.log(Intersecting)
     return () => {
       if (elementRef.current) {
         observer.unobserve(elementRef.current);
@@ -27,8 +25,7 @@ function useInfiniteScroll(elementRef) {
     };
   }, [elementRef.current]);
 
- 
-  return {Intersecting};
+  return { Intersecting };
 }
 
 export default useInfiniteScroll;
