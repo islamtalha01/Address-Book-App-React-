@@ -10,12 +10,6 @@ function HomePage() {
   const { elementRef } = useContext(AppContext);
   
   const {styles} =inLineStyles()
-  // const [initialRender, setInitialRender] = useState(true); // Add initialRender state
-
-  // useEffect(() => {
-  //   // Set initialRender to false after the component has mounted
-  //   setInitialRender(false);
-  // }, []);
 
   return (
     <Row
@@ -33,9 +27,6 @@ function HomePage() {
         </Col>
       </Row>
 
-      {/* {!initialRender && (
-        <div ref={elementRef} className={styles.refElement}></div>
-      )} */}
 
       <AppFooter />
     </Row>
@@ -45,8 +36,3 @@ function HomePage() {
 export default HomePage;
 
 
-// {/* 
-//        <div
-//         ref={elementRef}
-//        className={styles.refElement}
-//       ></div> */}
