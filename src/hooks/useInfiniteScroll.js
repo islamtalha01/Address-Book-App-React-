@@ -3,9 +3,11 @@ import { useEffect, useState } from "react";
 function useInfiniteScroll(elementRef) {
   const [Intersecting, setIntersecting] = useState(false);
   useEffect(() => {
+   
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
+          
           setIntersecting((prev) => !prev);
         }
       },

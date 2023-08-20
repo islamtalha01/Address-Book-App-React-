@@ -58,9 +58,9 @@ const inLineStyles = createStyles(({ token, css }) => ({
   refElement: {
     display: "flex",
     textAlign: "center",
-    height: "20px",
+    height: "10px",
     marginTop: "auto ",
-    backgroundColor:"black"
+    
   },
   homePageContainer: {
     flexDirection: "column",
